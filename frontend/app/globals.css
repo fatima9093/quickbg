@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --foreground-rgb: 15, 23, 42;
+    --background-start-rgb: 255, 255, 255;
+    --background-end-rgb: 249, 250, 251;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-gray-50 via-white to-gray-100 text-slate-900;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/70 backdrop-blur-lg border border-white/20 shadow-xl;
+  }
+
+  .gradient-primary {
+    @apply bg-gradient-to-r from-primary-600 to-primary-500;
+  }
+
+  .gradient-mesh {
+    background: radial-gradient(at 0% 0%, rgba(43, 61, 152, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(90, 98, 255, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(164, 176, 255, 0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(43, 61, 152, 0.1) 0px, transparent 50%);
+  }
+
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-xl font-medium 
+           transition-all duration-200 shadow-lg shadow-primary-600/30 hover:shadow-xl 
+           hover:shadow-primary-600/40 hover:scale-105 active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-gray-900 px-6 py-3 rounded-xl font-medium 
+           transition-all duration-200 border border-gray-200 shadow-sm hover:shadow-md 
+           hover:scale-105 active:scale-95;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-primary-500 
+           focus:ring-2 focus:ring-primary-500/20 outline-none transition-all duration-200
+           placeholder:text-gray-400;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 
+           border border-gray-100;
+  }
+
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.4) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
