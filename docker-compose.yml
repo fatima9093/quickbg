@@ -1,0 +1,107 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: quickbg-postgres
+    environment:
+      POSTGRES_USER: quickbg_user
+      POSTGRES_PASSWORD: quickbg_password
+      POSTGRES_DB: quickbg
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U quickbg_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis
+  redis:
+    image: redis:7-alpine
+    container_name: quickbg-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: quickbg-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://quickbg_user:quickbg_password@postgres:5432/quickbg
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - SECRET_KEY=your-super-secret-key-change-in-production
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=${AWS_REGION:-us-east-1}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - CORS_ORIGINS=http://localhost:3000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Celery Worker
+  celery-worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: quickbg-celery-worker
+    environment:
+      - DATABASE_URL=postgresql://quickbg_user:quickbg_password@postgres:5432/quickbg
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - SECRET_KEY=your-super-secret-key-change-in-production
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=${AWS_REGION:-us-east-1}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+    depends_on:
+      - postgres
+      - redis
+      - backend
+    volumes:
+      - ./backend:/app
+    command: celery -A app.tasks.celery_app worker --loglevel=info
+
+  # Frontend (optional - for local development)
+  # Uncomment if you want to run frontend in Docker
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   container_name: quickbg-frontend
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - NEXT_PUBLIC_API_URL=http://localhost:8000
+  #   volumes:
+  #     - ./frontend:/app
+  #     - /app/node_modules
+  #   command: npm run dev
+
+volumes:
+  postgres_data:
+  redis_data:
+
