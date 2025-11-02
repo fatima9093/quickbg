@@ -1,17 +1,27 @@
 # QuickBG - AI Background Removal
 
-A production-grade full-stack application for removing backgrounds from images using AI.
+A fast, privacy-focused full-stack application for removing backgrounds from images using AI. Features instant processing, zero storage policy, and user-friendly experience.
 
 ## 🚀 Features
 
-- **AI-Powered Background Removal**: Powered by rembg library
-- **User Authentication**: Secure JWT-based authentication with NextAuth
-- **Async Processing**: Celery + Redis for background job processing
-- **Cloud Storage**: AWS S3 for storing original and processed images
-- **Admin Panel**: Monitor users, uploads, and statistics
-- **REST API**: Well-documented FastAPI backend
-- **Modern Frontend**: Next.js 14 with App Router and TypeScript
-- **Production Ready**: Docker support, proper error handling, and logging
+### Core Features
+- **AI-Powered Background Removal**: Powered by rembg (U²-Net AI model) for professional-quality results
+- **Lightning Fast Processing**: Images processed in 2-5 seconds
+- **Zero Storage Policy**: Images processed in memory and never stored - complete privacy
+- **Free Tier Access**: 5 free tries without signup required
+- **Generous Free Plan**: 50 images per day for registered users (forever free)
+- **User Authentication**: Secure JWT-based authentication with 7-day sessions
+- **Role-Based Access**: Admin and user roles with unified dashboard
+- **Admin Panel**: Monitor users, statistics, and system metrics
+- **Modern UI**: Beautiful, responsive interface built with Next.js and TailwindCSS
+
+### User Experience
+- Try without signup (5 free attempts)
+- Instant processing - no waiting, no queues
+- Direct download - processed images ready immediately
+- Dashboard with usage statistics and activity tracking
+- Cookie consent management
+- Comprehensive pages: About, FAQ, Contact, Privacy, Terms
 
 ## 🛠️ Tech Stack
 
@@ -20,88 +30,89 @@ A production-grade full-stack application for removing backgrounds from images u
 - **Language**: TypeScript
 - **Styling**: TailwindCSS
 - **Authentication**: NextAuth.js
-- **State Management**: Zustand
-- **Data Fetching**: TanStack Query (React Query)
+- **State Management**: React Hooks, TanStack Query (React Query)
+- **UI Components**: Custom components with Lucide icons
+- **Form Handling**: React Hook Form patterns
+- **Notifications**: React Hot Toast
 
 ### Backend
 - **Framework**: FastAPI (Python)
-- **Database**: PostgreSQL
-- **Queue**: Redis + Celery
-- **Storage**: AWS S3
-- **ORM**: SQLAlchemy
+- **Database**: PostgreSQL with SQLAlchemy ORM
+- **Authentication**: JWT tokens (7-day expiration)
+- **AI Processing**: rembg library (U²-Net model)
+- **Image Processing**: PIL/Pillow, OpenCV, NumPy
 - **Migrations**: Alembic
-- **AI Model**: rembg
+- **No Queue System**: Direct instant processing
+- **No Storage**: Zero image storage - in-memory processing only
 
 ## 📁 Project Structure
 
 ```
 quickbg/
-├── frontend/               # Next.js frontend application
-│   ├── app/               # App router pages
-│   ├── components/        # React components
-│   ├── lib/              # Utilities and config
-│   └── types/            # TypeScript types
-├── backend/              # FastAPI backend application
+├── frontend/                    # Next.js frontend application
+│   ├── app/                     # App router pages
+│   │   ├── about/              # About page
+│   │   ├── admin/               # Admin dashboard pages
+│   │   │   ├── page.tsx        # Admin dashboard
+│   │   │   └── users/          # User management
+│   │   ├── contact/            # Contact page
+│   │   ├── cookies/            # Cookie policy
+│   │   ├── dashboard/          # User dashboard
+│   │   │   ├── page.tsx        # Main dashboard
+│   │   │   ├── profile/       # User profile
+│   │   │   ├── settings/      # Settings
+│   │   │   └── upload/         # Image upload & processing
+│   │   ├── faq/                # FAQ page
+│   │   ├── login/               # Login page
+│   │   ├── privacy/            # Privacy policy
+│   │   ├── signup/             # Signup page
+│   │   └── terms/              # Terms of service
+│   ├── components/             # React components
+│   │   ├── layout/            # Layout components (Navbar, Footer, Sidebar)
+│   │   ├── sections/          # Homepage sections
+│   │   └── ui/                # Reusable UI components
+│   ├── lib/                    # Utilities and API clients
+│   └── types/                  # TypeScript type definitions
+├── backend/                     # FastAPI backend application
 │   ├── app/
-│   │   ├── api/         # API routes
-│   │   ├── core/        # Configuration
-│   │   ├── db/          # Database models
-│   │   ├── services/    # Business logic
-│   │   └── tasks/       # Celery tasks
-│   └── alembic/         # Database migrations
-├── docker-compose.yml    # Docker orchestration
-├── Makefile             # Development commands
-└── README.md           # This file
+│   │   ├── api/               # API routes
+│   │   │   └── v1/
+│   │   │       ├── endpoints/
+│   │   │       │   ├── admin.py      # Admin endpoints
+│   │   │       │   ├── auth.py       # Authentication
+│   │   │       │   ├── health.py     # Health check
+│   │   │       │   └── process.py    # Image processing
+│   │   │       └── api.py            # API router
+│   │   ├── core/              # Configuration and security
+│   │   │   ├── config.py      # Settings and environment
+│   │   │   └── security.py    # JWT and password hashing
+│   │   ├── db/                 # Database layer
+│   │   │   ├── models.py      # SQLAlchemy models
+│   │   │   ├── crud.py        # Database operations
+│   │   │   └── base.py        # Database connection
+│   │   ├── services/           # Business logic
+│   │   │   └── background_removal.py  # AI processing service
+│   │   └── schemas/           # Pydantic schemas
+│   ├── alembic/                # Database migrations
+│   └── requirements.txt        # Python dependencies
+├── scripts/                     # Utility scripts
+│   ├── create-admin.py        # Create admin user
+│   └── setup-local.sh         # Local setup script
+└── README.md                   # This file
 ```
 
 ## 🏃 Getting Started
 
 ### Prerequisites
 
-- Docker & Docker Compose (recommended)
-- OR:
-  - Node.js 18+
-  - Python 3.11+
-  - PostgreSQL
-  - Redis
-- AWS Account (for S3 storage)
+- **Node.js** 18+ and npm
+- **Python** 3.11+
+- **PostgreSQL** 12+
+- (Optional) Docker & Docker Compose
 
-### Quick Start with Docker
+### Local Development Setup
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd quickbg
-   ```
-
-2. **Set up environment variables**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your AWS credentials and other settings
-   ```
-
-3. **Start all services**
-   ```bash
-   make up
-   # or
-   docker-compose up -d
-   ```
-
-4. **Run database migrations**
-   ```bash
-   make migrate
-   # or
-   docker-compose exec backend alembic upgrade head
-   ```
-
-5. **Access the application**
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:8000
-   - API Docs: http://localhost:8000/docs
-
-### Local Development (Without Docker)
-
-#### Backend Setup
+#### 1. Backend Setup
 
 ```bash
 cd backend
@@ -113,21 +124,26 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 
-# Set up environment
-cp .env.example .env
-# Edit .env with your configuration
+# Set up environment variables
+# Create a .env file with:
+DATABASE_URL=postgresql://user:password@localhost:5432/quickbg
+SECRET_KEY=your-secret-key-here
+CORS_ORIGINS=http://localhost:3000
 
-# Run migrations
+# Run database migrations
 alembic upgrade head
+
+# (Optional) Create admin user
+python scripts/create-admin.py
 
 # Start the server
 uvicorn app.main:app --reload
-
-# In a separate terminal, start Celery worker
-celery -A app.tasks.celery_app worker --loglevel=info
 ```
 
-#### Frontend Setup
+Backend will be available at: `http://localhost:8000`
+API Documentation: `http://localhost:8000/docs`
+
+#### 2. Frontend Setup
 
 ```bash
 cd frontend
@@ -135,35 +151,53 @@ cd frontend
 # Install dependencies
 npm install
 
-# Set up environment
-cp .env.example .env.local
-# Edit .env.local with your configuration
+# Set up environment variables
+# Create a .env.local file with:
+NEXT_PUBLIC_API_URL=http://localhost:8000
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-nextauth-secret-here
 
 # Start development server
 npm run dev
 ```
 
-## 🔧 Available Commands
+Frontend will be available at: `http://localhost:3000`
 
-### Using Makefile
+## 🔧 Configuration
 
-```bash
-make help              # Show all available commands
-make install           # Install dependencies
-make up                # Start all services with Docker
-make down              # Stop all services
-make logs              # View logs from all services
-make migrate           # Run database migrations
-make clean             # Remove all containers and volumes
+### Backend Environment Variables (.env)
+
+```env
+# Database
+DATABASE_URL=postgresql://user:password@localhost:5432/quickbg
+
+# Security
+SECRET_KEY=your-secret-key-here  # Change in production!
+
+# CORS
+CORS_ORIGINS=http://localhost:3000,http://localhost:3001
+
+# Image Processing (optional - defaults shown)
+MAX_IMAGE_SIZE_MB=10
+MAX_IMAGE_DIMENSION=4096
+MIN_IMAGE_DIMENSION=50
+PROCESSING_TIME_SOFT_CAP_SECONDS=15.0
+PROCESSING_TIME_DEFAULT_SECONDS=4.0
+
+# Rate Limiting
+MAX_IMAGES_PER_DAY=50
+MAX_IMAGES_PER_MONTH=500
+
+# JWT
+ACCESS_TOKEN_EXPIRE_MINUTES=10080  # 7 days
 ```
 
-### Docker Commands
+### Frontend Environment Variables (.env.local)
 
-```bash
-docker-compose up -d              # Start all services
-docker-compose down               # Stop all services
-docker-compose logs -f backend    # View backend logs
-docker-compose exec backend sh    # Access backend shell
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-nextauth-secret-here
 ```
 
 ## 📚 API Documentation
@@ -176,97 +210,160 @@ Once the backend is running, visit:
 
 #### Authentication
 - `POST /api/v1/auth/register` - Register new user
-- `POST /api/v1/auth/login` - Login user
+- `POST /api/v1/auth/login` - Login user (returns JWT token)
 
-#### Uploads
-- `POST /api/v1/uploads` - Upload image for processing
-- `GET /api/v1/uploads` - Get user's uploads
-- `GET /api/v1/uploads/{id}` - Get specific upload
+#### Image Processing
+- `POST /api/v1/process-anonymous` - Process image without authentication (5 free tries)
+- `GET /api/v1/anonymous-usage` - Check remaining free tries
+- `POST /api/v1/process` - Process image (authenticated users, 50/day)
+- `GET /api/v1/stats` - Get user statistics
 
 #### Admin (requires admin role)
-- `GET /api/v1/admin/stats` - Get dashboard statistics
-- `GET /api/v1/admin/users` - Get all users
-- `GET /api/v1/admin/uploads` - Get all uploads
+- `GET /api/v1/admin/stats` - Get system-wide statistics
+- `GET /api/v1/admin/users` - Get all users (with pagination)
 
-## 🚀 Deployment
+#### Health
+- `GET /api/v1/health` - Health check endpoint
 
-### Frontend (Vercel)
+## 🎯 Key Features Explained
 
-1. Push your code to GitHub
-2. Import project in Vercel
-3. Set environment variables
-4. Deploy
+### Zero Storage Policy
+- Images are processed entirely in memory
+- Temporary files are deleted immediately after download
+- No AWS S3, no file system storage
+- Complete privacy - images never persist
 
-### Backend (Render/Railway)
+### Instant Processing
+- No task queue system (no Celery/Redis)
+- Direct synchronous processing
+- AI model pre-warmed on startup for instant first request
+- Typical processing time: 2-5 seconds
 
-#### Render
+### Free Tier Limits
+- **Anonymous Users**: 5 free tries (tracked by IP address)
+- **Registered Users**: 50 images per day
+- No credit card required
+- Forever free plan
 
-1. Create a new Web Service
-2. Connect your repository
-3. Set build command: `pip install -r requirements.txt`
-4. Set start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
-5. Add PostgreSQL and Redis instances
-6. Set environment variables
-7. Deploy
+### Session Management
+- JWT tokens expire after 7 days
+- Automatic logout after expiration
+- Persistent sessions across page refreshes
 
-#### Railway
-
-1. Create a new project
-2. Add PostgreSQL and Redis plugins
-3. Connect GitHub repository
-4. Set environment variables
-5. Deploy
-
-### Celery Workers
-
-Deploy Celery workers as separate services on Render or Railway using the command:
-```bash
-celery -A app.tasks.celery_app worker --loglevel=info
-```
-
-## 🔐 Environment Variables
-
-### Backend (.env)
-```
-DATABASE_URL=postgresql://user:password@host:5432/quickbg
-REDIS_URL=redis://host:6379/0
-SECRET_KEY=your-secret-key
-AWS_ACCESS_KEY_ID=your-access-key
-AWS_SECRET_ACCESS_KEY=your-secret-key
-S3_BUCKET_NAME=your-bucket-name
-```
-
-### Frontend (.env.local)
-```
-NEXT_PUBLIC_API_URL=http://localhost:8000
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your-secret-key
-```
+### Role-Based Access
+- **Regular Users**: Standard dashboard with personal stats
+- **Admin Users**: Unified dashboard with admin panels, user management, and system statistics
+- Role-based UI rendering - no separate admin routes required
 
 ## 🧪 Testing
 
+### Backend Tests
 ```bash
-# Backend tests
 cd backend
 pytest
+```
 
-# Frontend tests
+### Frontend Type Checking
+```bash
 cd frontend
-npm test
+npm run type-check
+```
+
+### Build Frontend
+```bash
+cd frontend
+npm run build
 ```
 
 ## 📝 Database Migrations
 
 ```bash
-# Create a new migration
-make migrate-create name="add_new_field"
+cd backend
 
-# Run migrations
-make migrate
+# Create a new migration
+alembic revision --autogenerate -m "description"
+
+# Apply migrations
+alembic upgrade head
 
 # Rollback migration
-cd backend && alembic downgrade -1
+alembic downgrade -1
 ```
+
+## 🚀 Deployment
+
+### Backend Deployment (Render/Railway/Heroku)
+
+1. Set environment variables:
+   - `DATABASE_URL`
+   - `SECRET_KEY`
+   - `CORS_ORIGINS` (your frontend URL)
+
+2. Build command: `pip install -r requirements.txt`
+
+3. Start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+
+4. Run migrations: `alembic upgrade head`
+
+### Frontend Deployment (Vercel/Netlify)
+
+1. Set environment variables:
+   - `NEXT_PUBLIC_API_URL` (your backend URL)
+   - `NEXTAUTH_URL` (your frontend URL)
+   - `NEXTAUTH_SECRET`
+
+2. Build command: `npm run build`
+
+3. Deploy automatically on git push
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **Database connection error**
+   - Ensure PostgreSQL is running
+   - Check `DATABASE_URL` in `.env`
+   - Verify database exists and credentials are correct
+
+2. **CORS errors**
+   - Add your frontend URL to `CORS_ORIGINS` in backend `.env`
+   - Format: `http://localhost:3000,https://yourdomain.com`
+
+3. **JWT token errors**
+   - Ensure `SECRET_KEY` matches between environments
+   - Check token expiration (default: 7 days)
+
+4. **Processing time shows incorrectly**
+   - Backend automatically normalizes unrealistic spikes
+   - Processing times are clamped to max 15 seconds per image
+   - Average calculated from normalized totals
+
+5. **Frontend build errors**
+   - Run `npm install` to ensure dependencies are installed
+   - Check TypeScript errors: `npm run type-check`
+
+## 📊 Architecture Highlights
+
+- **No Storage**: Complete privacy with in-memory processing
+- **No Queue**: Instant processing without background jobs
+- **Pre-warmed AI**: Model loaded at startup for fast first request
+- **Optimized Processing**: Images resized to max 800px for speed
+- **Smart Caching**: AI model session cached in memory
+- **Processing Time Normalization**: Automatic correction of unrealistic metrics
+
+## 🔐 Security Features
+
+- Password hashing with bcrypt
+- JWT token-based authentication
+- CORS protection
+- Rate limiting (50 images/day, 5 anonymous tries)
+- Input validation and sanitization
+- SQL injection protection via SQLAlchemy
+- Secure session management (7-day expiration)
+
+## 📄 License
+
+This project is proprietary and confidential.
 
 ## 🤝 Contributing
 
@@ -276,30 +373,6 @@ cd backend && alembic downgrade -1
 4. Push to the branch
 5. Open a Pull Request
 
-## 📄 License
-
-This project is proprietary and confidential.
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-1. **Database connection error**
-   - Ensure PostgreSQL is running
-   - Check DATABASE_URL in .env
-
-2. **Redis connection error**
-   - Ensure Redis is running
-   - Check REDIS_URL in .env
-
-3. **S3 upload fails**
-   - Verify AWS credentials
-   - Check bucket permissions
-
-4. **Celery tasks not processing**
-   - Ensure Celery worker is running
-   - Check Redis connection
-
 ## 📧 Support
 
 For issues and questions, please open an issue in the repository.
@@ -308,3 +381,4 @@ For issues and questions, please open an issue in the repository.
 
 Built with ❤️ using Next.js and FastAPI
 
+**QuickBG** - Fast, private, and free background removal powered by AI.
