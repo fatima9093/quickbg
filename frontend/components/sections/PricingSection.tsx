@@ -21,7 +21,7 @@ export function PricingSection() {
             </span>
           </h2>
           <p className="text-xl text-gray-600">
-            Choose the plan that's right for you
+            Choose the plan that&apos;s right for you
           </p>
         </div>
 

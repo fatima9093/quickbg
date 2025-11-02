@@ -127,18 +127,20 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-b border-gray-200 last:border-0">
+    <div className="border-b border-gray-200 last:border-0 group">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-4 px-6 flex items-center justify-between hover:bg-gray-50 transition-colors"
+        className="w-full py-5 px-6 flex items-center justify-between hover:bg-gradient-to-r hover:from-primary-50 hover:to-transparent transition-all duration-200"
       >
-        <span className="text-left font-medium text-gray-900">{question}</span>
-        <ChevronDown 
-          className={`w-5 h-5 text-gray-500 transition-transform flex-shrink-0 ml-4 ${isOpen ? 'transform rotate-180' : ''}`}
-        />
+        <span className="text-left font-semibold text-gray-900 group-hover:text-primary-700 transition-colors">{question}</span>
+        <div className={`flex-shrink-0 ml-4 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
+          isOpen ? 'bg-primary-600 rotate-180' : 'bg-gray-100 group-hover:bg-primary-100'
+        }`}>
+          <ChevronDown className={`w-5 h-5 transition-colors ${isOpen ? 'text-white' : 'text-gray-600'}`} />
+        </div>
       </button>
       {isOpen && (
-        <div className="px-6 pb-4 text-gray-600 leading-relaxed">
+        <div className="px-6 pb-5 text-gray-600 leading-relaxed animate-in fade-in duration-200">
           {answer}
         </div>
       )}
@@ -165,8 +167,8 @@ export default function FAQPage() {
               </span>
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
-              Everything you need to know about QuickBG. Can't find what you're looking for? 
-              Contact us and we'll get back to you ASAP!
+              Everything you need to know about QuickBG. Can&apos;t find what you&apos;re looking for? 
+              Contact us and we&apos;ll get back to you ASAP!
             </p>
           </div>
         </section>
@@ -176,8 +178,13 @@ export default function FAQPage() {
           <div className="max-w-4xl mx-auto space-y-12">
             {faqs.map((category, idx) => (
               <div key={idx} className="space-y-6">
-                <h2 className="text-2xl font-bold text-gray-900">{category.category}</h2>
-                <Card>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-600 to-purple-600 flex items-center justify-center text-white font-bold">
+                    {idx + 1}
+                  </div>
+                  <h2 className="text-2xl font-bold text-gray-900">{category.category}</h2>
+                </div>
+                <Card className="border-2 border-gray-100 hover:border-primary-200 transition-colors shadow-md">
                   <CardContent className="p-0">
                     {category.questions.map((faq, qIdx) => (
                       <FAQItem key={qIdx} question={faq.q} answer={faq.a} />
@@ -190,26 +197,33 @@ export default function FAQPage() {
         </section>
 
         {/* Still Have Questions */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-bold text-gray-900">Still Have Questions?</h2>
-            <p className="text-xl text-gray-600">
-              We're here to help! Reach out to our friendly support team.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="/contact"
-                className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary-600 text-white font-medium hover:bg-primary-700 transition-colors"
-              >
-                Contact Support
-              </a>
-              <a 
-                href="/"
-                className="inline-flex items-center justify-center px-6 py-3 rounded-lg border-2 border-gray-300 text-gray-700 font-medium hover:border-primary-600 hover:text-primary-600 transition-colors"
-              >
-                Try QuickBG Now
-              </a>
-            </div>
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+          <div className="max-w-4xl mx-auto">
+            <Card className="border-2 border-primary-200 bg-gradient-to-br from-white to-primary-50 shadow-xl">
+              <CardContent className="p-12 text-center space-y-6">
+                <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-primary-600 to-purple-600 flex items-center justify-center">
+                  <HelpCircle className="w-8 h-8 text-white" />
+                </div>
+                <h2 className="text-3xl font-bold text-gray-900">Still Have Questions?</h2>
+                <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                  We&apos;re here to help! Reach out to our friendly support team and we&apos;ll get back to you within 24 hours.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+                  <a 
+                    href="/contact"
+                    className="inline-flex items-center justify-center px-8 py-3 rounded-lg bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 duration-200"
+                  >
+                    Contact Support
+                  </a>
+                  <a 
+                    href="/"
+                    className="inline-flex items-center justify-center px-8 py-3 rounded-lg border-2 border-gray-300 text-gray-700 font-semibold hover:border-primary-600 hover:text-primary-600 transition-all"
+                  >
+                    Try QuickBG Now
+                  </a>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
       </main>

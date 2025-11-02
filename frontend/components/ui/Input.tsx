@@ -5,10 +5,11 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
   icon?: React.ReactNode;
+  helperText?: string;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, label, error, icon, ...props }, ref) => {
+  ({ className, label, error, icon, helperText, ...props }, ref) => {
     return (
       <div className="w-full">
         {label && (
@@ -33,8 +34,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
         </div>
-        {error && (
+        {error ? (
           <p className="mt-2 text-sm text-red-600">{error}</p>
+        ) : (
+          helperText && (
+            <p className="mt-2 text-sm text-gray-500">{helperText}</p>
+          )
         )}
       </div>
     );

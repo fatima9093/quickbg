@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { Sparkles, Mail, Lock, Github, Chrome, AlertCircle } from "lucide-react";
+import { Sparkles, Mail, Lock, AlertCircle } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function LoginPage() {
@@ -47,9 +47,6 @@ export default function LoginPage() {
     }
   };
 
-  const handleSocialLogin = (provider: string) => {
-    toast.info(`${provider} login not yet configured`);
-  };
 
   return (
     <div className="min-h-screen flex">
@@ -76,34 +73,6 @@ export default function LoginPage() {
             <p className="text-gray-600">
               Sign in to continue to your account
             </p>
-          </div>
-
-          {/* Social Login */}
-          <div className="grid grid-cols-2 gap-4">
-            <Button
-              variant="outline"
-              onClick={() => handleSocialLogin("google")}
-              icon={<Chrome className="w-5 h-5" />}
-            >
-              Google
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => handleSocialLogin("github")}
-              icon={<Github className="w-5 h-5" />}
-            >
-              GitHub
-            </Button>
-          </div>
-
-          {/* Divider */}
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300" />
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500">Or continue with email</span>
-            </div>
           </div>
 
           {/* Error Message */}
@@ -164,7 +133,7 @@ export default function LoginPage() {
 
           {/* Sign up link */}
           <p className="text-center text-gray-600">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               href="/signup"
               className="text-primary-600 hover:text-primary-700 font-medium"

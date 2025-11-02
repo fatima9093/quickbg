@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { Shield } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/Card";
+import { Shield, Lock, Eye, Server, Database, Check, X } from "lucide-react";
 
 export default function PrivacyPolicyPage() {
   return (
@@ -28,93 +29,216 @@ export default function PrivacyPolicyPage() {
 
         {/* Policy Content */}
         <section className="py-20 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto prose prose-lg">
-            <div className="space-y-12">
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Introduction</h2>
-                <p className="text-gray-600 leading-relaxed">
-                  At QuickBG, we take your privacy seriously. This Privacy Policy explains how we collect, use, 
-                  and protect your information when you use our background removal service.
-                </p>
-                <div className="mt-4 p-4 bg-green-50 border-l-4 border-green-500 rounded">
-                  <p className="text-green-800 font-medium">
-                    <strong>TL;DR:</strong> We don't store your images. Ever. Your photos are processed and immediately deleted.
-                  </p>
-                </div>
-              </section>
+          <div className="max-w-4xl mx-auto">
+            <div className="space-y-8">
+              <Card className="border-2 border-primary-100 shadow-lg">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-600 to-purple-600 flex items-center justify-center flex-shrink-0">
+                      <Eye className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-bold text-gray-900 mb-2">Introduction</h2>
+                      <p className="text-gray-600 leading-relaxed">
+                        At QuickBG, we take your privacy seriously. This Privacy Policy explains how we collect, use, 
+                        and protect your information when you use our background removal service.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-6 p-6 bg-gradient-to-br from-green-50 to-green-100 border-l-4 border-green-500 rounded-lg">
+                    <div className="flex items-start gap-3">
+                      <Lock className="w-6 h-6 text-green-700 flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="text-green-900 font-bold text-lg mb-1">
+                          TL;DR: Zero Storage Policy
+                        </p>
+                        <p className="text-green-800">
+                          We don&apos;t store your images. Ever. Your photos are processed in memory and immediately deleted. No exceptions.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
 
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Information We Collect</h2>
-                
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Account Information (Optional)</h3>
-                <p className="text-gray-600 leading-relaxed mb-4">
-                  If you create an account, we collect:
-                </p>
-                <ul className="list-disc pl-6 text-gray-600 space-y-2">
-                  <li>Email address</li>
-                  <li>Name (optional)</li>
-                  <li>Password (encrypted)</li>
-                  <li>Account creation date</li>
-                </ul>
+              <Card className="border-2 border-blue-100 shadow-lg">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center flex-shrink-0">
+                      <Database className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-bold text-gray-900 mb-4">Information We Collect</h2>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                        <Check className="w-5 h-5 text-green-600" />
+                        Account Information (Optional)
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed mb-3 ml-7">
+                        If you create an account, we collect:
+                      </p>
+                      <ul className="list-disc pl-12 text-gray-600 space-y-2">
+                        <li>Email address</li>
+                        <li>Name (optional)</li>
+                        <li>Password (encrypted)</li>
+                        <li>Account creation date</li>
+                      </ul>
+                    </div>
 
-                <h3 className="text-xl font-semibold text-gray-900 mb-3 mt-6">Usage Statistics</h3>
-                <p className="text-gray-600 leading-relaxed mb-4">
-                  We track basic usage to provide you with your daily limit:
-                </p>
-                <ul className="list-disc pl-6 text-gray-600 space-y-2">
-                  <li>Number of images processed</li>
-                  <li>Processing dates and times</li>
-                  <li>Total processing time</li>
-                </ul>
+                    <div>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                        <Check className="w-5 h-5 text-green-600" />
+                        Usage Statistics
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed mb-3 ml-7">
+                        We track basic usage to provide you with your daily limit:
+                      </p>
+                      <ul className="list-disc pl-12 text-gray-600 space-y-2">
+                        <li>Number of images processed</li>
+                        <li>Processing dates and times</li>
+                        <li>Total processing time</li>
+                      </ul>
+                    </div>
 
-                <h3 className="text-xl font-semibold text-gray-900 mb-3 mt-6">Your Images</h3>
-                <div className="p-4 bg-blue-50 border-l-4 border-blue-500 rounded">
-                  <p className="text-blue-800 font-medium">
-                    <strong>Zero Storage Policy:</strong> We do NOT store, save, or keep any images you upload. 
-                    Images are processed in memory and deleted immediately after you download them. We have no database, 
-                    no backups, no copies.
-                  </p>
-                </div>
-              </section>
+                    <div>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                        <X className="w-5 h-5 text-red-600" />
+                        Your Images
+                      </h3>
+                      <div className="ml-7 p-6 bg-gradient-to-br from-blue-50 to-blue-100 border-l-4 border-blue-500 rounded-lg">
+                        <div className="flex items-start gap-3">
+                          <Shield className="w-6 h-6 text-blue-700 flex-shrink-0 mt-1" />
+                          <div>
+                            <p className="text-blue-900 font-bold text-lg mb-1">
+                              Zero Storage Policy
+                            </p>
+                            <p className="text-blue-800">
+                              We do NOT store, save, or keep any images you upload. 
+                              Images are processed in memory and deleted immediately after you download them. We have no database, 
+                              no backups, no copies.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
 
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">How We Use Your Information</h2>
-                <ul className="list-disc pl-6 text-gray-600 space-y-2">
-                  <li>To provide and maintain our service</li>
-                  <li>To track your daily usage limits</li>
-                  <li>To communicate important service updates</li>
-                  <li>To improve our service and user experience</li>
-                  <li>To prevent abuse and enforce our Terms of Service</li>
-                </ul>
-              </section>
+              <Card className="border-2 border-purple-100 shadow-lg">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center flex-shrink-0">
+                      <Server className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h2 className="text-2xl font-bold text-gray-900 mb-4">How We Use Your Information</h2>
+                      <ul className="space-y-3 text-gray-600">
+                        <li className="flex items-start gap-3">
+                          <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>To provide and maintain our service</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>To track your daily usage limits</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>To communicate important service updates</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>To improve our service and user experience</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>To prevent abuse and enforce our Terms of Service</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
 
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Image Processing</h2>
-                <p className="text-gray-600 leading-relaxed mb-4">
-                  When you upload an image:
-                </p>
-                <ol className="list-decimal pl-6 text-gray-600 space-y-2">
-                  <li>Your image is uploaded via secure HTTPS connection</li>
-                  <li>Our AI processes it in memory (2-5 seconds)</li>
-                  <li>The processed image is sent back to you</li>
-                  <li>Both original and processed images are immediately deleted from our servers</li>
-                  <li>No traces remain - we keep zero copies</li>
-                </ol>
-              </section>
+              <Card className="border-2 border-green-100 shadow-lg">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-600 to-emerald-600 flex items-center justify-center flex-shrink-0">
+                      <Lock className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h2 className="text-2xl font-bold text-gray-900 mb-4">Image Processing Flow</h2>
+                      <p className="text-gray-600 leading-relaxed mb-4">
+                        When you upload an image, here&apos;s exactly what happens:
+                      </p>
+                      <ol className="space-y-3 text-gray-600">
+                        <li className="flex items-start gap-3">
+                          <div className="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center flex-shrink-0 text-sm font-bold">1</div>
+                          <span>Your image is uploaded via secure HTTPS connection</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <div className="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center flex-shrink-0 text-sm font-bold">2</div>
+                          <span>Our AI processes it in memory (2-5 seconds)</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <div className="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center flex-shrink-0 text-sm font-bold">3</div>
+                          <span>The processed image is sent back to you</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <div className="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center flex-shrink-0 text-sm font-bold">4</div>
+                          <span>Both original and processed images are immediately deleted from our servers</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <div className="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center flex-shrink-0 text-sm font-bold">5</div>
+                          <span>No traces remain - we keep zero copies</span>
+                        </li>
+                      </ol>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
 
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Data Security</h2>
-                <p className="text-gray-600 leading-relaxed mb-4">
-                  We implement industry-standard security measures:
-                </p>
-                <ul className="list-disc pl-6 text-gray-600 space-y-2">
-                  <li>HTTPS encryption for all data transmission</li>
-                  <li>Encrypted password storage</li>
-                  <li>Regular security audits</li>
-                  <li>Secure server infrastructure</li>
-                  <li>No image storage = no risk of image data breaches</li>
-                </ul>
-              </section>
+              <Card className="border-2 border-orange-100 shadow-lg">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center flex-shrink-0">
+                      <Shield className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h2 className="text-2xl font-bold text-gray-900 mb-4">Data Security</h2>
+                      <p className="text-gray-600 leading-relaxed mb-4">
+                        We implement industry-standard security measures:
+                      </p>
+                      <ul className="space-y-3 text-gray-600">
+                        <li className="flex items-start gap-3">
+                          <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>HTTPS encryption for all data transmission</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>Encrypted password storage</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>Regular security audits</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>Secure server infrastructure</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>No image storage = no risk of image data breaches</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
 
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Cookies and Tracking</h2>
@@ -124,7 +248,7 @@ export default function PrivacyPolicyPage() {
                 <ul className="list-disc pl-6 text-gray-600 space-y-2">
                   <li><strong>Session Cookie:</strong> To keep you logged in</li>
                   <li><strong>Anonymous Usage Tracking:</strong> IP-based tracking for free tier limits (5 tries)</li>
-                  <li><strong>No Third-Party Trackers:</strong> We don't use Google Analytics, Facebook Pixel, or similar</li>
+                  <li><strong>No Third-Party Trackers:</strong> We don&apos;t use Google Analytics, Facebook Pixel, or similar</li>
                 </ul>
               </section>
 
@@ -157,10 +281,10 @@ export default function PrivacyPolicyPage() {
               </section>
 
               <section>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Children's Privacy</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Children&apos;s Privacy</h2>
                 <p className="text-gray-600 leading-relaxed">
                   QuickBG is not intended for children under 13. We do not knowingly collect information 
-                  from children. If you're a parent and believe your child has used our service, 
+                  from children. If you&apos;re a parent and believe your child has used our service, 
                   please contact us.
                 </p>
               </section>
@@ -168,7 +292,7 @@ export default function PrivacyPolicyPage() {
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Changes to This Policy</h2>
                 <p className="text-gray-600 leading-relaxed">
-                  We may update this Privacy Policy from time to time. We'll notify you of any significant 
+                  We may update this Privacy Policy from time to time. We&apos;ll notify you of any significant 
                   changes by email (if you have an account) or by posting a notice on our website.
                 </p>
               </section>

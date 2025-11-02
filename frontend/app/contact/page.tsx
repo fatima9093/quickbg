@@ -48,8 +48,8 @@ export default function ContactPage() {
               </span>
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
-              Have a question, feedback, or need help? We're here for you! 
-              Drop us a message and we'll respond within 24 hours.
+              Have a question, feedback, or need help? We&apos;re here for you! 
+              Drop us a message and we&apos;ll respond within 24 hours.
             </p>
           </div>
         </section>
@@ -60,47 +60,49 @@ export default function ContactPage() {
             <div className="grid md:grid-cols-3 gap-8">
               {/* Contact Info */}
               <div className="space-y-6">
-                <Card>
+                <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-blue-200">
                   <CardContent className="p-6 space-y-4">
-                    <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
-                      <Mail className="w-6 h-6 text-blue-600" />
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Mail className="w-7 h-7 text-blue-600" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Email Us</h3>
-                      <p className="text-sm text-gray-600 mb-2">
+                      <h3 className="font-bold text-gray-900 mb-2 text-lg">Email Us</h3>
+                      <p className="text-sm text-gray-600 mb-3">
                         For general inquiries and support
                       </p>
                       <a 
                         href="mailto:support@quickbg.com" 
-                        className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+                        className="text-sm text-primary-600 hover:text-primary-700 font-semibold inline-flex items-center gap-1 group"
                       >
                         support@quickbg.com
+                        <Send className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                       </a>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-green-200">
                   <CardContent className="p-6 space-y-4">
-                    <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
-                      <Clock className="w-6 h-6 text-green-600" />
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Clock className="w-7 h-7 text-green-600" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Response Time</h3>
-                      <p className="text-sm text-gray-600">
-                        We typically respond within 24 hours during business days
+                      <h3 className="font-bold text-gray-900 mb-2 text-lg">Response Time</h3>
+                      <p className="text-sm text-gray-600 mb-2">
+                        We typically respond within
                       </p>
+                      <p className="text-2xl font-bold text-green-600">24 hours</p>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-purple-200">
                   <CardContent className="p-6 space-y-4">
-                    <div className="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center">
-                      <MapPin className="w-6 h-6 text-purple-600" />
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <MapPin className="w-7 h-7 text-purple-600" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Based In</h3>
+                      <h3 className="font-bold text-gray-900 mb-2 text-lg">Based In</h3>
                       <p className="text-sm text-gray-600">
                         Serving users worldwide with cloud-based infrastructure
                       </p>
@@ -111,9 +113,12 @@ export default function ContactPage() {
 
               {/* Contact Form */}
               <div className="md:col-span-2">
-                <Card>
-                  <CardContent className="p-8">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
+                <Card className="border-2 border-gray-100 shadow-lg">
+                  <CardContent className="p-8 md:p-10">
+                    <div className="mb-8">
+                      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Send Us a Message</h2>
+                      <p className="text-gray-600">Fill out the form below and we&apos;ll get back to you as soon as possible.</p>
+                    </div>
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid md:grid-cols-2 gap-6">
                         <Input
@@ -175,18 +180,25 @@ export default function ContactPage() {
         </section>
 
         {/* FAQ Link */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-bold text-gray-900">Looking for Quick Answers?</h2>
-            <p className="text-xl text-gray-600">
-              Check out our FAQ page for instant answers to common questions
-            </p>
-            <a 
-              href="/faq"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary-600 text-white font-medium hover:bg-primary-700 transition-colors"
-            >
-              Visit FAQ
-            </a>
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+          <div className="max-w-4xl mx-auto">
+            <Card className="border-2 border-primary-200 bg-gradient-to-br from-white to-purple-50 shadow-xl">
+              <CardContent className="p-12 text-center space-y-6">
+                <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-primary-600 to-purple-600 flex items-center justify-center">
+                  <MessageSquare className="w-8 h-8 text-white" />
+                </div>
+                <h2 className="text-3xl font-bold text-gray-900">Looking for Quick Answers?</h2>
+                <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                  Check out our FAQ page for instant answers to common questions about QuickBG, pricing, and more.
+                </p>
+                <a 
+                  href="/faq"
+                  className="inline-flex items-center justify-center px-8 py-3 rounded-lg bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 duration-200"
+                >
+                  Visit FAQ Page
+                </a>
+              </CardContent>
+            </Card>
           </div>
         </section>
       </main>

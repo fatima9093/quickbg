@@ -18,6 +18,9 @@ async def get_stats(
     """Get admin dashboard statistics."""
     from sqlalchemy import func
     
+    # Normalize any stale processing spikes before aggregation
+    crud.normalize_all_users_processing_stats(db)
+    
     total_users = db.query(func.count(User.id)).scalar()
     total_images_processed = db.query(func.sum(User.total_images_processed)).scalar()
     total_processing_time = db.query(func.sum(User.total_processing_time)).scalar()

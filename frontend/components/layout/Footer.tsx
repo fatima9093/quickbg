@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Sparkles, Twitter, Github, Linkedin } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -21,32 +21,6 @@ export function Footer() {
             <p className="text-gray-600 text-sm">
               Remove image backgrounds instantly with AI-powered precision.
             </p>
-            <div className="flex items-center gap-3">
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-gray-100 hover:bg-primary-100 flex items-center justify-center transition-colors group"
-              >
-                <Twitter className="w-4 h-4 text-gray-600 group-hover:text-primary-600" />
-              </a>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-gray-100 hover:bg-primary-100 flex items-center justify-center transition-colors group"
-              >
-                <Github className="w-4 h-4 text-gray-600 group-hover:text-primary-600" />
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-gray-100 hover:bg-primary-100 flex items-center justify-center transition-colors group"
-              >
-                <Linkedin className="w-4 h-4 text-gray-600 group-hover:text-primary-600" />
-              </a>
-            </div>
           </div>
 
           {/* Support */}

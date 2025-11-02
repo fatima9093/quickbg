@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { Sparkles, Mail, Lock, User, Github, Chrome, Check, AlertCircle } from "lucide-react";
+import { Sparkles, Mail, Lock, User, Check, AlertCircle } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { authApi } from "@/lib/api/auth";
 import toast from "react-hot-toast";
@@ -56,9 +56,6 @@ export default function SignupPage() {
     }
   };
 
-  const handleSocialSignup = (provider: string) => {
-    toast.info(`${provider} signup not yet configured`);
-  };
 
   return (
     <div className="min-h-screen flex">
@@ -116,34 +113,6 @@ export default function SignupPage() {
             <p className="text-gray-600">
               Start removing backgrounds in seconds
             </p>
-          </div>
-
-          {/* Social Signup */}
-          <div className="grid grid-cols-2 gap-4">
-            <Button
-              variant="outline"
-              onClick={() => handleSocialSignup("google")}
-              icon={<Chrome className="w-5 h-5" />}
-            >
-              Google
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => handleSocialSignup("github")}
-              icon={<Github className="w-5 h-5" />}
-            >
-              GitHub
-            </Button>
-          </div>
-
-          {/* Divider */}
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300" />
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500">Or continue with email</span>
-            </div>
           </div>
 
           {/* Error Message */}

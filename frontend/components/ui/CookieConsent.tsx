@@ -49,7 +49,7 @@ export function CookieConsent() {
                 </p>
                 <p className="text-xs text-gray-600">
                   By continuing to visit this site, you agree to our use of cookies. 
-                  We don't store your images - check our{" "}
+                  We don&apos;t store your images - check our{" "}
                   <Link href="/privacy" className="text-primary-600 hover:text-primary-700 underline">
                     Privacy Policy
                   </Link>{" "}

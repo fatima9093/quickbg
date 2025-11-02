@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { FileText } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/Card";
+import { FileText, Shield, Users, AlertTriangle, Check, X, Scale } from "lucide-react";
 
 export default function TermsPage() {
   return (
@@ -28,29 +29,62 @@ export default function TermsPage() {
 
         {/* Terms Content */}
         <section className="py-20 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto prose prose-lg">
-            <div className="space-y-12">
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Agreement to Terms</h2>
-                <p className="text-gray-600 leading-relaxed">
-                  By accessing or using QuickBG ("Service"), you agree to be bound by these Terms of Service. 
-                  If you don't agree to these terms, please don't use our Service.
-                </p>
-              </section>
+          <div className="max-w-4xl mx-auto">
+            <div className="space-y-8">
+              <Card className="border-2 border-primary-100 shadow-lg">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-600 to-purple-600 flex items-center justify-center flex-shrink-0">
+                      <Scale className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-bold text-gray-900 mb-3">Agreement to Terms</h2>
+                      <p className="text-gray-600 leading-relaxed">
+                        By accessing or using QuickBG (&quot;Service&quot;), you agree to be bound by these Terms of Service. 
+                        If you don&apos;t agree to these terms, please don&apos;t use our Service.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
 
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Description of Service</h2>
-                <p className="text-gray-600 leading-relaxed mb-4">
-                  QuickBG provides an AI-powered background removal service. The Service includes:
-                </p>
-                <ul className="list-disc pl-6 text-gray-600 space-y-2">
-                  <li>Background removal for uploaded images</li>
-                  <li>5 free tries without creating an account</li>
-                  <li>50 images per day for registered users (free forever)</li>
-                  <li>Instant processing (2-5 seconds)</li>
-                  <li>Zero image storage - privacy-first approach</li>
-                </ul>
-              </section>
+              <Card className="border-2 border-blue-100 shadow-lg">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center flex-shrink-0">
+                      <FileText className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h2 className="text-2xl font-bold text-gray-900 mb-4">Description of Service</h2>
+                      <p className="text-gray-600 leading-relaxed mb-4">
+                        QuickBG provides an AI-powered background removal service. The Service includes:
+                      </p>
+                    </div>
+                  </div>
+                  <ul className="space-y-3 text-gray-600">
+                    <li className="flex items-start gap-3">
+                      <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span>Background removal for uploaded images</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span>5 free tries without creating an account</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span>50 images per day for registered users (free forever)</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span>Instant processing (2-5 seconds)</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span>Zero image storage - privacy-first approach</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
 
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">User Accounts</h2>
@@ -62,7 +96,7 @@ export default function TermsPage() {
                 <ul className="list-disc pl-6 text-gray-600 space-y-2">
                   <li>You must provide accurate information</li>
                   <li>You must be at least 13 years old</li>
-                  <li>You're responsible for maintaining account security</li>
+                  <li>You&apos;re responsible for maintaining account security</li>
                   <li>One person or entity may maintain only one free account</li>
                 </ul>
 
@@ -83,22 +117,55 @@ export default function TermsPage() {
                 </ul>
               </section>
 
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Acceptable Use</h2>
-                <p className="text-gray-600 leading-relaxed mb-4">
-                  You agree NOT to:
-                </p>
-                <ul className="list-disc pl-6 text-gray-600 space-y-2">
-                  <li>Upload illegal, offensive, or inappropriate content</li>
-                  <li>Use the Service for any unlawful purpose</li>
-                  <li>Attempt to hack, disrupt, or compromise the Service</li>
-                  <li>Create multiple accounts to circumvent usage limits</li>
-                  <li>Upload images containing personal information of others without consent</li>
-                  <li>Use automated bots or scripts to abuse the Service</li>
-                  <li>Resell or commercially distribute our Service without permission</li>
-                  <li>Upload malware, viruses, or malicious code</li>
-                </ul>
-              </section>
+              <Card className="border-2 border-red-100 shadow-lg">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-red-600 to-orange-600 flex items-center justify-center flex-shrink-0">
+                      <AlertTriangle className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h2 className="text-2xl font-bold text-gray-900 mb-4">Acceptable Use</h2>
+                      <p className="text-gray-600 leading-relaxed mb-4">
+                        You agree NOT to:
+                      </p>
+                    </div>
+                  </div>
+                  <ul className="space-y-3 text-gray-600">
+                    <li className="flex items-start gap-3">
+                      <X className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                      <span>Upload illegal, offensive, or inappropriate content</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <X className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                      <span>Use the Service for any unlawful purpose</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <X className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                      <span>Attempt to hack, disrupt, or compromise the Service</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <X className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                      <span>Create multiple accounts to circumvent usage limits</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <X className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                      <span>Upload images containing personal information of others without consent</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <X className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                      <span>Use automated bots or scripts to abuse the Service</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <X className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                      <span>Resell or commercially distribute our Service without permission</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <X className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                      <span>Upload malware, viruses, or malicious code</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
 
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Content Ownership</h2>
@@ -131,7 +198,7 @@ export default function TermsPage() {
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Service Availability</h2>
                 <p className="text-gray-600 leading-relaxed mb-4">
-                  We strive to keep QuickBG available 24/7, but we don't guarantee:
+                  We strive to keep QuickBG available 24/7, but we don&apos;t guarantee:
                 </p>
                 <ul className="list-disc pl-6 text-gray-600 space-y-2">
                   <li>Uninterrupted access to the Service</li>
@@ -147,7 +214,7 @@ export default function TermsPage() {
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Disclaimer of Warranties</h2>
                 <p className="text-gray-600 leading-relaxed">
-                  THE SERVICE IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND. We disclaim all warranties, 
+                  THE SERVICE IS PROVIDED &quot;AS IS&quot; WITHOUT WARRANTIES OF ANY KIND. We disclaim all warranties, 
                   express or implied, including warranties of merchantability, fitness for a particular purpose, 
                   and non-infringement.
                 </p>
@@ -180,7 +247,7 @@ export default function TermsPage() {
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Changes to Terms</h2>
                 <p className="text-gray-600 leading-relaxed">
                   We reserve the right to modify these Terms at any time. If we make material changes, 
-                  we'll notify you by email (if you have an account) or by posting a notice on our website. 
+                  we&apos;ll notify you by email (if you have an account) or by posting a notice on our website. 
                   Continued use of the Service after changes constitutes acceptance of the new Terms.
                 </p>
               </section>

@@ -5,9 +5,15 @@ interface LoadingSpinnerProps {
   size?: "sm" | "md" | "lg";
   text?: string;
   fullScreen?: boolean;
+  className?: string;
 }
 
-export function LoadingSpinner({ size = "md", text, fullScreen = false }: LoadingSpinnerProps) {
+export function LoadingSpinner({
+  size = "md",
+  text,
+  fullScreen = false,
+  className,
+}: LoadingSpinnerProps) {
   const sizes = {
     sm: "w-4 h-4",
     md: "w-8 h-8",
@@ -16,7 +22,13 @@ export function LoadingSpinner({ size = "md", text, fullScreen = false }: Loadin
 
   const content = (
     <div className="flex flex-col items-center justify-center gap-3">
-      <Loader2 className={cn("animate-spin text-primary-600", sizes[size])} />
+      <Loader2
+        className={cn(
+          "animate-spin text-primary-600",
+          sizes[size],
+          className
+        )}
+      />
       {text && <p className="text-gray-600 text-sm">{text}</p>}
     </div>
   );

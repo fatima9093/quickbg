@@ -64,7 +64,7 @@ export function FeaturesSection() {
             </span>
           </h2>
           <p className="text-xl text-gray-600">
-            Fast, private, and free. No gimmicks, no hidden costs, just results you'll love.
+            Fast, private, and free. No gimmicks, no hidden costs, just results you&apos;ll love.
           </p>
         </div>
 

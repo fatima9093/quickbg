@@ -75,14 +75,17 @@ export default function CookiesPage() {
             </div>
 
             {/* Essential Cookies */}
-            <Card>
-              <CardContent className="p-6">
+            <Card className="border-2 border-green-100 shadow-lg">
+              <CardContent className="p-8">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <h3 className="text-xl font-semibold text-gray-900">Essential Cookies</h3>
-                      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded">
-                        Always Active
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
+                        <Check className="w-6 h-6 text-green-600" />
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900">Essential Cookies</h3>
+                      <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">
+                        ALWAYS ACTIVE
                       </span>
                     </div>
                     <p className="text-gray-600 leading-relaxed mb-4">
@@ -113,11 +116,16 @@ export default function CookiesPage() {
             </Card>
 
             {/* Analytics Cookies */}
-            <Card>
-              <CardContent className="p-6">
+            <Card className="border-2 border-blue-100 shadow-lg">
+              <CardContent className="p-8">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Analytics Cookies</h3>
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                        <X className="w-6 h-6 text-blue-600" />
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900">Analytics Cookies</h3>
+                    </div>
                     <p className="text-gray-600 leading-relaxed mb-4">
                       These cookies help us understand how visitors interact with our website by collecting 
                       and reporting information anonymously. This helps us improve our service.
@@ -155,11 +163,16 @@ export default function CookiesPage() {
             </Card>
 
             {/* Marketing Cookies */}
-            <Card>
-              <CardContent className="p-6">
+            <Card className="border-2 border-purple-100 shadow-lg">
+              <CardContent className="p-8">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Marketing Cookies</h3>
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
+                        <X className="w-6 h-6 text-purple-600" />
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900">Marketing Cookies</h3>
+                    </div>
                     <p className="text-gray-600 leading-relaxed mb-4">
                       These cookies track your online activity to help advertisers deliver more relevant advertising 
                       or to limit how many times you see an ad.
@@ -209,44 +222,54 @@ export default function CookiesPage() {
         </section>
 
         {/* What We Actually Use */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">What QuickBG Actually Uses</h2>
-            <Card>
-              <CardContent className="p-8">
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
-                      <Check className="w-5 h-5 text-green-600" />
+            <div className="text-center mb-12 space-y-4">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm">
+                <Cookie className="w-4 h-4 text-primary-600" />
+                <span className="text-sm font-medium text-primary-700">Our Cookie Usage</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">What QuickBG Actually Uses</h2>
+              <p className="text-xl text-gray-600">Transparency is important to us. Here&apos;s what we really use:</p>
+            </div>
+            <Card className="border-2 border-primary-100 shadow-xl">
+              <CardContent className="p-10">
+                <div className="space-y-8">
+                  <div className="flex items-start gap-5 p-5 bg-gradient-to-r from-green-50 to-transparent rounded-xl border-l-4 border-green-500">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <Check className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Session Cookie</h3>
-                      <p className="text-gray-600">
+                      <h3 className="font-bold text-gray-900 mb-2 text-lg">Session Cookie</h3>
+                      <p className="text-gray-600 leading-relaxed">
                         To keep you logged in while you use QuickBG. This expires when you close your browser.
+                        Essential for account functionality.
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
-                      <Check className="w-5 h-5 text-green-600" />
+                  <div className="flex items-start gap-5 p-5 bg-gradient-to-r from-blue-50 to-transparent rounded-xl border-l-4 border-blue-500">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <Check className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Anonymous Usage Tracking</h3>
-                      <p className="text-gray-600">
+                      <h3 className="font-bold text-gray-900 mb-2 text-lg">Anonymous Usage Tracking</h3>
+                      <p className="text-gray-600 leading-relaxed">
                         IP-based tracking to enforce the 5 free tries limit for anonymous users. No personal data is stored.
+                        Resets automatically after 24 hours.
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center flex-shrink-0">
-                      <X className="w-5 h-5 text-red-600" />
+                  <div className="flex items-start gap-5 p-5 bg-gradient-to-r from-red-50 to-transparent rounded-xl border-l-4 border-red-500">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <X className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">No Third-Party Trackers</h3>
-                      <p className="text-gray-600">
-                        We don't use Google Analytics, Facebook Pixel, or any third-party tracking services.
+                      <h3 className="font-bold text-gray-900 mb-2 text-lg">No Third-Party Trackers</h3>
+                      <p className="text-gray-600 leading-relaxed">
+                        We don&apos;t use Google Analytics, Facebook Pixel, or any third-party tracking services.
+                        Your privacy is our priority.
                       </p>
                     </div>
                   </div>
