@@ -6,21 +6,21 @@ import Link from "next/link";
 
 export function PricingSection() {
   return (
-    <section id="pricing" className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="pricing" className="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 text-primary-700 rounded-full text-sm font-medium">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium">
             <Sparkles className="w-4 h-4" />
             <span>Pricing</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">
             Simple,
             <span className="bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
               {" "}transparent pricing
             </span>
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-gray-400">
             Choose the plan that&apos;s right for you
           </p>
         </div>
@@ -47,17 +47,17 @@ export function PricingSection() {
               )}
 
               <CardHeader className="p-8 pb-6">
-                <CardTitle className="text-2xl font-bold text-gray-900 mb-2">
+                <CardTitle className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
                   {plan.name}
                 </CardTitle>
-                <p className="text-gray-600 text-sm mb-6">
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-6">
                   {plan.description}
                 </p>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-5xl font-bold text-gray-900">
+                  <span className="text-5xl font-bold text-gray-900 dark:text-gray-100">
                     {plan.price}
                   </span>
-                  <span className="text-gray-600">/ {plan.period}</span>
+                  <span className="text-gray-600 dark:text-gray-400">/ {plan.period}</span>
                 </div>
               </CardHeader>
 
@@ -74,8 +74,8 @@ export function PricingSection() {
                 <ul className="space-y-3">
                   {plan.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-start gap-3">
-                      <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-700">{feature}</span>
+                      <Check className="w-5 h-5 text-green-500 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-700 dark:text-gray-300">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -86,9 +86,9 @@ export function PricingSection() {
 
         {/* FAQ */}
         <div className="mt-16 text-center">
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-400">
             Need a custom plan?{" "}
-            <a href="#" className="text-primary-600 hover:text-primary-700 font-medium">
+            <a href="#" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
               Contact our sales team
             </a>
           </p>

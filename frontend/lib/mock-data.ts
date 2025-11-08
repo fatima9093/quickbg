@@ -43,7 +43,7 @@ export const mockPricingPlans = [
     description: "Perfect for personal projects",
     features: [
       "5 tries without signup",
-      "50 images per day",
+      "Unlimited background removal (after signup)",
       "2-5 second processing",
       "High-quality PNG export",
       "No credit card required",

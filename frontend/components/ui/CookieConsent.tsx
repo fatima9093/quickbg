@@ -35,22 +35,22 @@ export function CookieConsent() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 animate-slide-up">
-      <div className="bg-white/95 backdrop-blur-lg border-t border-gray-200 shadow-2xl">
+      <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-700 shadow-2xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             {/* Icon & Message */}
             <div className="flex items-start gap-3 flex-1">
-              <div className="w-10 h-10 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
-                <Cookie className="w-5 h-5 text-primary-600" />
+              <div className="w-10 h-10 rounded-lg bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center flex-shrink-0">
+                <Cookie className="w-5 h-5 text-primary-600 dark:text-primary-400" />
               </div>
               <div className="flex-1">
-                <p className="text-sm text-gray-900 font-medium mb-1">
+                <p className="text-sm text-gray-900 dark:text-gray-100 font-medium mb-1">
                   We use cookies to enhance your experience
                 </p>
-                <p className="text-xs text-gray-600">
+                <p className="text-xs text-gray-600 dark:text-gray-400">
                   By continuing to visit this site, you agree to our use of cookies. 
                   We don&apos;t store your images - check our{" "}
-                  <Link href="/privacy" className="text-primary-600 hover:text-primary-700 underline">
+                  <Link href="/privacy" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline">
                     Privacy Policy
                   </Link>{" "}
                   for details.
@@ -60,7 +60,7 @@ export function CookieConsent() {
 
             {/* Actions */}
             <div className="flex items-center gap-3 w-full sm:w-auto">
-              <Link href="/cookies" className="text-sm text-gray-600 hover:text-gray-900 whitespace-nowrap">
+              <Link href="/cookies" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 whitespace-nowrap">
                 Cookie Settings
               </Link>
               <Button
@@ -73,7 +73,7 @@ export function CookieConsent() {
               </Button>
               <button
                 onClick={closeBanner}
-                className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
+                className="p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
                 aria-label="Close"
               >
                 <X className="w-5 h-5" />

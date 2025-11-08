@@ -76,12 +76,12 @@ export default function UsersManagement() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-gray-900">User Management</h2>
-          <p className="text-gray-600 mt-1">Manage all registered users</p>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">User Management</h2>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Manage all registered users</p>
         </div>
         <div className="text-right">
-          <p className="text-3xl font-bold text-gray-900">{users.length}</p>
-          <p className="text-sm text-gray-600">Total Users</p>
+          <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">{users.length}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Total Users</p>
         </div>
       </div>
 
@@ -102,16 +102,16 @@ export default function UsersManagement() {
             {/* Stats */}
             <div className="flex gap-4">
               <div className="text-center px-4">
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                   {users.filter((u) => u.role === "admin").length}
                 </div>
-                <div className="text-xs text-gray-600">Admins</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400">Admins</div>
               </div>
               <div className="text-center px-4">
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                   {users.filter((u) => u.role === "user").length}
                 </div>
-                <div className="text-xs text-gray-600">Users</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400">Users</div>
               </div>
             </div>
           </div>
@@ -140,26 +140,26 @@ export default function UsersManagement() {
             <div className="hidden md:block overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-gray-200 bg-gray-50">
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                  <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                       User
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                       Role
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                       Joined
                     </th>
-                    <th className="px-6 py-4 text-right text-xs font-medium text-gray-600 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-right text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                   {filteredUsers.map((user) => (
                     <tr
                       key={user.id}
-                      className="hover:bg-gray-50 transition-colors"
+                      className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                     >
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
@@ -167,10 +167,10 @@ export default function UsersManagement() {
                             {user.name ? user.name[0].toUpperCase() : user.email[0].toUpperCase()}
                           </div>
                           <div>
-                            <div className="font-medium text-gray-900">
+                            <div className="font-medium text-gray-900 dark:text-gray-100">
                               {user.name || "No name"}
                             </div>
-                            <div className="text-sm text-gray-600 flex items-center gap-1">
+                            <div className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-1">
                               <Mail className="w-3 h-3" />
                               {user.email}
                             </div>
@@ -191,7 +191,7 @@ export default function UsersManagement() {
                           )}
                         </Badge>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-4 h-4" />
                           {new Date(user.created_at).toLocaleDateString('en-US', {
@@ -213,7 +213,7 @@ export default function UsersManagement() {
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                            className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20"
                             icon={<Trash2 className="w-4 h-4" />}
                             onClick={() => handleDeleteUser(user.id)}
                           >
@@ -228,7 +228,7 @@ export default function UsersManagement() {
             </div>
 
             {/* Mobile Card View */}
-            <div className="md:hidden divide-y divide-gray-200">
+            <div className="md:hidden divide-y divide-gray-200 dark:divide-gray-700">
               {filteredUsers.map((user) => (
                 <div key={user.id} className="p-6 space-y-4">
                   <div className="flex items-start justify-between">
@@ -237,10 +237,10 @@ export default function UsersManagement() {
                         {user.name ? user.name[0].toUpperCase() : user.email[0].toUpperCase()}
                       </div>
                       <div>
-                        <div className="font-medium text-gray-900">
+                        <div className="font-medium text-gray-900 dark:text-gray-100">
                           {user.name || "No name"}
                         </div>
-                        <div className="text-sm text-gray-600">{user.email}</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">{user.email}</div>
                       </div>
                     </div>
                     <Badge variant={user.role === "admin" ? "info" : "default"}>
@@ -248,7 +248,7 @@ export default function UsersManagement() {
                     </Badge>
                   </div>
 
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                     <Calendar className="w-4 h-4" />
                     Joined {new Date(user.created_at).toLocaleDateString()}
                   </div>
@@ -260,7 +260,7 @@ export default function UsersManagement() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="text-red-600 hover:text-red-700"
+                      className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300"
                       onClick={() => handleDeleteUser(user.id)}
                     >
                       <Trash2 className="w-4 h-4" />

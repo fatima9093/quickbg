@@ -153,14 +153,7 @@ async def process_image(
     temp_output_path = None
     
     try:
-        # Rate limiting check
-        today_count = current_user.images_processed_today or 0
-        if today_count >= settings.MAX_IMAGES_PER_DAY:
-            raise HTTPException(
-                status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-                detail=f"Daily limit of {settings.MAX_IMAGES_PER_DAY} images reached. Please try again tomorrow."
-            )
-        
+        # No rate limiting for logged-in users - unlimited usage
         # Validate file
         if not file.content_type or not file.content_type.startswith("image/"):
             raise HTTPException(

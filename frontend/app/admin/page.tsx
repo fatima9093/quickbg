@@ -80,9 +80,9 @@ export default function AdminDashboard() {
   if (error) {
     return (
       <div className="text-center py-12">
-        <Shield className="w-16 h-16 text-red-500 mx-auto mb-4" />
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Access Error</h2>
-        <p className="text-gray-600 mb-4">{error}</p>
+        <Shield className="w-16 h-16 text-red-500 dark:text-red-400 mx-auto mb-4" />
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Access Error</h2>
+        <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
         <Button onClick={handleRefresh} icon={<RefreshCw className="w-4 h-4" />}>
           Try Again
         </Button>
@@ -95,11 +95,11 @@ export default function AdminDashboard() {
       {/* Header with Refresh */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-gray-900">Admin Dashboard</h2>
-          <p className="text-gray-600 mt-1">Real-time system overview and user management</p>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Admin Dashboard</h2>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Real-time system overview and user management</p>
         </div>
         <div className="flex items-center gap-4">
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-gray-500 dark:text-gray-400">
             Last updated: {lastRefresh.toLocaleTimeString()}
           </div>
           <Button 
@@ -120,15 +120,15 @@ export default function AdminDashboard() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1">Total Users</p>
-                <p className="text-3xl font-bold text-gray-900">{stats?.total_users || 0}</p>
-                <div className="flex items-center gap-1 mt-2 text-gray-500 text-sm">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Users</p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">{stats?.total_users || 0}</p>
+                <div className="flex items-center gap-1 mt-2 text-gray-500 dark:text-gray-400 text-sm">
                   <TrendingUp className="w-4 h-4" />
                   <span>Registered accounts</span>
                 </div>
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center">
-                <Users className="w-7 h-7 text-blue-600" />
+              <div className="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                <Users className="w-7 h-7 text-blue-600 dark:text-blue-400" />
               </div>
             </div>
           </CardContent>
@@ -139,15 +139,15 @@ export default function AdminDashboard() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1">Images Processed</p>
-                <p className="text-3xl font-bold text-gray-900">{stats?.total_images_processed || 0}</p>
-                <div className="flex items-center gap-1 mt-2 text-gray-500 text-sm">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Images Processed</p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">{stats?.total_images_processed || 0}</p>
+                <div className="flex items-center gap-1 mt-2 text-gray-500 dark:text-gray-400 text-sm">
                   <Activity className="w-4 h-4" />
                   <span>All time</span>
                 </div>
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-purple-100 flex items-center justify-center">
-                <ImageIcon className="w-7 h-7 text-purple-600" />
+              <div className="w-14 h-14 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                <ImageIcon className="w-7 h-7 text-purple-600 dark:text-purple-400" />
               </div>
             </div>
           </CardContent>
@@ -158,15 +158,15 @@ export default function AdminDashboard() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1">Processing Time</p>
-                <p className="text-3xl font-bold text-gray-900">{formatTime(stats?.total_processing_time || 0)}</p>
-                <div className="flex items-center gap-1 mt-2 text-gray-500 text-sm">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Processing Time</p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">{formatTime(stats?.total_processing_time || 0)}</p>
+                <div className="flex items-center gap-1 mt-2 text-gray-500 dark:text-gray-400 text-sm">
                   <Clock className="w-4 h-4" />
                   <span>Total spent</span>
                 </div>
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-yellow-100 flex items-center justify-center">
-                <Clock className="w-7 h-7 text-yellow-600" />
+              <div className="w-14 h-14 rounded-2xl bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center">
+                <Clock className="w-7 h-7 text-yellow-600 dark:text-yellow-400" />
               </div>
             </div>
           </CardContent>
@@ -177,15 +177,15 @@ export default function AdminDashboard() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1">Avg Processing</p>
-                <p className="text-3xl font-bold text-gray-900">{formatTime(stats?.avg_processing_time || 0)}</p>
-                <div className="flex items-center gap-1 mt-2 text-green-600 text-sm">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Avg Processing</p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">{formatTime(stats?.avg_processing_time || 0)}</p>
+                <div className="flex items-center gap-1 mt-2 text-green-600 dark:text-green-400 text-sm">
                   <Zap className="w-4 h-4" />
                   <span>Per image</span>
                 </div>
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center">
-                <BarChart3 className="w-7 h-7 text-green-600" />
+              <div className="w-14 h-14 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                <BarChart3 className="w-7 h-7 text-green-600 dark:text-green-400" />
               </div>
             </div>
           </CardContent>
@@ -198,16 +198,16 @@ export default function AdminDashboard() {
         <Card>
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
-                <Zap className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
+                <Zap className="w-6 h-6 text-blue-600 dark:text-blue-400" />
               </div>
               <div className="flex-1">
-                <p className="text-sm text-gray-600">Free Tier Limit</p>
-                <p className="text-2xl font-bold text-gray-900">5 tries</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Free Tier Limit</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">5 tries</p>
               </div>
               <Badge variant="info">Anonymous</Badge>
             </div>
-            <p className="mt-3 text-xs text-gray-500">
+            <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
               Users can try 5 times before signup
             </p>
           </CardContent>
@@ -217,17 +217,17 @@ export default function AdminDashboard() {
         <Card>
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center flex-shrink-0">
-                <Users className="w-6 h-6 text-green-600" />
+              <div className="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                <Users className="w-6 h-6 text-green-600 dark:text-green-400" />
               </div>
               <div className="flex-1">
-                <p className="text-sm text-gray-600">Registered Limit</p>
-                <p className="text-2xl font-bold text-gray-900">50/day</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Registered Limit</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">Unlimited</p>
               </div>
               <Badge variant="success">Free</Badge>
             </div>
-            <p className="mt-3 text-xs text-gray-500">
-              Free users get 50 images per day
+            <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+              Logged-in users get unlimited background removal
             </p>
           </CardContent>
         </Card>
@@ -236,16 +236,16 @@ export default function AdminDashboard() {
         <Card>
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center flex-shrink-0">
-                <Activity className="w-6 h-6 text-purple-600" />
+              <div className="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0">
+                <Activity className="w-6 h-6 text-purple-600 dark:text-purple-400" />
               </div>
               <div className="flex-1">
-                <p className="text-sm text-gray-600">Target Speed</p>
-                <p className="text-2xl font-bold text-gray-900">2-5s</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Target Speed</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">2-5s</p>
               </div>
               <Badge variant="default">Optimized</Badge>
             </div>
-            <p className="mt-3 text-xs text-gray-500">
+            <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
               Instant processing with no storage
             </p>
           </CardContent>
@@ -267,21 +267,21 @@ export default function AdminDashboard() {
         <CardContent className="p-6 pt-0">
           <div className="space-y-3">
             {recentUsers.length === 0 ? (
-              <p className="text-center text-gray-500 py-8">No users yet</p>
+              <p className="text-center text-gray-500 dark:text-gray-400 py-8">No users yet</p>
             ) : (
               recentUsers.map((user) => (
                 <div
                   key={user.id}
-                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                 >
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-purple-400 flex items-center justify-center text-white font-semibold">
                     {user.name ? user.name[0].toUpperCase() : user.email[0].toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">
+                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
                       {user.name || "No name"}
                     </p>
-                    <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user.email}</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <Badge variant={user.role === "admin" ? "info" : "default"}>
@@ -294,7 +294,7 @@ export default function AdminDashboard() {
                         "User"
                       )}
                     </Badge>
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-gray-400 dark:text-gray-500">
                       {new Date(user.created_at).toLocaleDateString()}
                     </span>
                   </div>
@@ -315,10 +315,10 @@ export default function AdminDashboard() {
                   <Users className="w-7 h-7 text-white" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
                     Manage Users
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-400">
                     View, search, and manage all registered users
                   </p>
                 </div>
@@ -335,10 +335,10 @@ export default function AdminDashboard() {
                   <ImageIcon className="w-7 h-7 text-white" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
                     Try Background Removal
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-400">
                     Test the AI background removal tool yourself
                   </p>
                 </div>
@@ -356,34 +356,34 @@ export default function AdminDashboard() {
         <CardContent className="p-6 pt-0">
           <div className="grid md:grid-cols-3 gap-6">
             {/* API Status */}
-            <div className="text-center p-4 rounded-lg bg-green-50 border border-green-200">
-              <div className="text-3xl font-bold text-green-600 mb-2">●</div>
-              <div className="text-sm font-medium text-gray-900 mb-1">FastAPI Backend</div>
-              <div className="text-xs text-green-600 font-medium mb-2">Operational</div>
-              <p className="text-xs text-gray-500">REST API for all operations</p>
+            <div className="text-center p-4 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
+              <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">●</div>
+              <div className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">FastAPI Backend</div>
+              <div className="text-xs text-green-600 dark:text-green-400 font-medium mb-2">Operational</div>
+              <p className="text-xs text-gray-500 dark:text-gray-400">REST API for all operations</p>
             </div>
 
             {/* Database Status */}
-            <div className="text-center p-4 rounded-lg bg-blue-50 border border-blue-200">
-              <div className="text-3xl font-bold text-blue-600 mb-2">●</div>
-              <div className="text-sm font-medium text-gray-900 mb-1">PostgreSQL</div>
-              <div className="text-xs text-blue-600 font-medium mb-2">Connected</div>
-              <p className="text-xs text-gray-500">User data & statistics only</p>
+            <div className="text-center p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
+              <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">●</div>
+              <div className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">PostgreSQL</div>
+              <div className="text-xs text-blue-600 dark:text-blue-400 font-medium mb-2">Connected</div>
+              <p className="text-xs text-gray-500 dark:text-gray-400">User data & statistics only</p>
             </div>
 
             {/* AI Model Status */}
-            <div className="text-center p-4 rounded-lg bg-purple-50 border border-purple-200">
-              <div className="text-3xl font-bold text-purple-600 mb-2">●</div>
-              <div className="text-sm font-medium text-gray-900 mb-1">U²-Net AI (u2netp)</div>
-              <div className="text-xs text-purple-600 font-medium mb-2">Loaded</div>
-              <p className="text-xs text-gray-500">Pre-warmed for instant processing</p>
+            <div className="text-center p-4 rounded-lg bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800">
+              <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">●</div>
+              <div className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">U²-Net AI (u2netp)</div>
+              <div className="text-xs text-purple-600 dark:text-purple-400 font-medium mb-2">Loaded</div>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Pre-warmed for instant processing</p>
             </div>
           </div>
 
           {/* Architecture Notes */}
-          <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-            <h4 className="text-sm font-semibold text-gray-900 mb-2">Architecture Notes</h4>
-            <ul className="space-y-1 text-xs text-gray-600">
+          <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2">Architecture Notes</h4>
+            <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-400">
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
                 <span>No image storage - instant processing and download</span>

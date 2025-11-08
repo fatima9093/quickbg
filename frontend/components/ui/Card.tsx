@@ -10,8 +10,8 @@ export function Card({ className, hover = false, glass = false, children, ...pro
   return (
     <div
       className={cn(
-        "rounded-2xl border border-gray-100 transition-all duration-300",
-        glass ? "glass" : "bg-white shadow-lg",
+        "rounded-2xl border border-gray-100 dark:border-gray-700 transition-all duration-300",
+        glass ? "glass" : "bg-white dark:bg-gray-800 shadow-lg",
         hover && "hover:shadow-xl hover:scale-[1.02]",
         className
       )}
@@ -27,11 +27,11 @@ export function CardHeader({ className, ...props }: HTMLAttributes<HTMLDivElemen
 }
 
 export function CardTitle({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) {
-  return <h3 className={cn("text-xl font-semibold text-gray-900", className)} {...props} />;
+  return <h3 className={cn("text-xl font-semibold text-gray-900 dark:text-gray-100", className)} {...props} />;
 }
 
 export function CardDescription({ className, ...props }: HTMLAttributes<HTMLParagraphElement>) {
-  return <p className={cn("text-sm text-gray-600 mt-1", className)} {...props} />;
+  return <p className={cn("text-sm text-gray-600 dark:text-gray-400 mt-1", className)} {...props} />;
 }
 
 export function CardContent({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
@@ -39,6 +39,6 @@ export function CardContent({ className, ...props }: HTMLAttributes<HTMLDivEleme
 }
 
 export function CardFooter({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("p-6 pt-4 border-t border-gray-100", className)} {...props} />;
+  return <div className={cn("p-6 pt-4 border-t border-gray-100 dark:border-gray-700", className)} {...props} />;
 }
 

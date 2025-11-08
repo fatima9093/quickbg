@@ -43,7 +43,13 @@ export default function SignupPage() {
       });
 
       if (result?.ok) {
-        router.push("/dashboard");
+        const { getSession } = await import("next-auth/react");
+        const session = await getSession();
+        if (session?.user?.role === "admin") {
+          router.push("/admin");
+        } else {
+          router.push("/");
+        }
         router.refresh();
       }
     } catch (error: any) {
@@ -58,7 +64,7 @@ export default function SignupPage() {
 
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex bg-white dark:bg-gray-900">
       {/* Left Side - Visual */}
       <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-primary-600 via-primary-700 to-purple-600 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -107,19 +113,19 @@ export default function SignupPage() {
 
           {/* Header */}
           <div className="text-center space-y-2">
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
               Create your account
             </h1>
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-400">
               Start removing backgrounds in seconds
             </p>
           </div>
 
           {/* Error Message */}
           {error && (
-            <div className="p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3 animate-fade-in">
-              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
-              <p className="text-sm text-red-700">{error}</p>
+            <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center gap-3 animate-fade-in">
+              <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0" />
+              <p className="text-sm text-red-700 dark:text-red-400">{error}</p>
             </div>
           )}
 
@@ -158,16 +164,16 @@ export default function SignupPage() {
             <div className="flex items-start gap-2">
               <input
                 type="checkbox"
-                className="mt-1 w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                className="mt-1 w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500"
                 required
               />
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-gray-600 dark:text-gray-400">
                 I agree to the{" "}
-                <Link href="#" className="text-primary-600 hover:text-primary-700">
+                <Link href="#" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">
                   Terms of Service
                 </Link>{" "}
                 and{" "}
-                <Link href="#" className="text-primary-600 hover:text-primary-700">
+                <Link href="#" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">
                   Privacy Policy
                 </Link>
               </span>
@@ -184,11 +190,11 @@ export default function SignupPage() {
           </form>
 
           {/* Sign in link */}
-          <p className="text-center text-gray-600">
+          <p className="text-center text-gray-600 dark:text-gray-400">
             Already have an account?{" "}
             <Link
               href="/login"
-              className="text-primary-600 hover:text-primary-700 font-medium"
+              className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
             >
               Sign in
             </Link>

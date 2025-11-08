@@ -10,7 +10,10 @@ import {
   Settings,
   LogOut,
   Shield,
+  Moon,
+  Sun,
 } from "lucide-react";
+import { useTheme } from "@/lib/theme-provider";
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
@@ -23,6 +26,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { theme, toggleTheme } = useTheme();
 
   // TODO: Add auth check once integrated
   // const session = await getServerSession(authOptions);
@@ -31,9 +35,9 @@ export default function AdminLayout({
   // }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Top Navbar */}
-      <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
+      <nav className="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center gap-8">
@@ -42,8 +46,8 @@ export default function AdminLayout({
                   <Shield className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-gray-900">QuickBG</h1>
-                  <p className="text-xs text-gray-500">Admin Panel</p>
+                  <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">QuickBG</h1>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Admin Panel</p>
                 </div>
               </Link>
 
@@ -59,8 +63,8 @@ export default function AdminLayout({
                         flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors
                         ${
                           isActive
-                            ? "bg-primary-50 text-primary-700"
-                            : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                            ? "bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400"
+                            : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100"
                         }
                       `}
                     >
@@ -74,27 +78,39 @@ export default function AdminLayout({
 
             {/* Right Side */}
             <div className="flex items-center gap-4">
-              <Link
-                href="/dashboard"
-                className="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-2"
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                aria-label="Toggle theme"
               >
-                <LayoutDashboard className="w-4 h-4" />
-                <span className="hidden sm:inline">User View</span>
-              </Link>
+                {theme === "light" ? (
+                  <Moon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+                ) : (
+                  <Sun className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+                )}
+              </button>
               <Link
                 href="/"
-                className="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-2"
+                className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 flex items-center gap-2"
+              >
+                <LayoutDashboard className="w-4 h-4" />
+                <span className="hidden sm:inline">Home</span>
+              </Link>
+              <button
+                onClick={() => import("next-auth/react").then(m => m.signOut({ callbackUrl: "/" }))}
+                className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 flex items-center gap-2"
               >
                 <LogOut className="w-4 h-4" />
                 <span className="hidden sm:inline">Logout</span>
-              </Link>
+              </button>
             </div>
           </div>
         </div>
       </nav>
 
       {/* Mobile Navigation */}
-      <div className="md:hidden bg-white border-b">
+      <div className="md:hidden bg-white dark:bg-gray-800 border-b dark:border-gray-700">
         <div className="flex overflow-x-auto">
           {navigation.map((item) => {
             const isActive = pathname === item.href;
@@ -106,8 +122,8 @@ export default function AdminLayout({
                   flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-colors
                   ${
                     isActive
-                      ? "border-primary-600 text-primary-700"
-                      : "border-transparent text-gray-600 hover:text-gray-900"
+                      ? "border-primary-600 dark:border-primary-500 text-primary-700 dark:text-primary-400"
+                      : "border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
                   }
                 `}
               >

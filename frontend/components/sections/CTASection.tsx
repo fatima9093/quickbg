@@ -25,7 +25,7 @@ export function CTASection() {
         </h2>
 
         <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
-          Create a free account and remove backgrounds from 50 images every day. 
+          Create a free account and remove backgrounds without limits. 
           <br className="hidden sm:block" />
           No credit card. No hidden fees. Just pure AI-powered magic.
         </p>
@@ -55,7 +55,7 @@ export function CTASection() {
             <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
               <Zap className="w-6 h-6" />
             </div>
-            <span className="text-sm font-medium">50 images/day free</span>
+            <span className="text-sm font-medium">Unlimited after signup</span>
           </div>
           <div className="flex flex-col items-center gap-2 text-white">
             <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">

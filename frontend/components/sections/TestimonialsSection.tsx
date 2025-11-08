@@ -5,17 +5,17 @@ import Image from "next/image";
 
 export function TestimonialsSection() {
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">
             Loved by
             <span className="bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
               {" "}thousands
             </span>
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-gray-400">
             See what our customers have to say about QuickBG
           </p>
         </div>
@@ -38,20 +38,20 @@ export function TestimonialsSection() {
                 </div>
 
                 {/* Quote */}
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                   &quot;{testimonial.content}&quot;
                 </p>
 
                 {/* Author */}
-                <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
+                <div className="flex items-center gap-4 pt-4 border-t border-gray-100 dark:border-gray-700">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-400 to-purple-400 flex items-center justify-center text-white font-semibold">
                     {testimonial.name[0]}
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">
+                    <div className="font-semibold text-gray-900 dark:text-gray-100">
                       {testimonial.name}
                     </div>
-                    <div className="text-sm text-gray-600">
+                    <div className="text-sm text-gray-600 dark:text-gray-400">
                       {testimonial.role} at {testimonial.company}
                     </div>
                   </div>

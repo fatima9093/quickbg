@@ -9,7 +9,7 @@ A fast, privacy-focused full-stack application for removing backgrounds from ima
 - **Lightning Fast Processing**: Images processed in 2-5 seconds
 - **Zero Storage Policy**: Images processed in memory and never stored - complete privacy
 - **Free Tier Access**: 5 free tries without signup required
-- **Generous Free Plan**: 50 images per day for registered users (forever free)
+- **Generous Free Plan**: Unlimited background removal for registered users (forever free)
 - **User Authentication**: Secure JWT-based authentication with 7-day sessions
 - **Role-Based Access**: Admin and user roles with unified dashboard
 - **Admin Panel**: Monitor users, statistics, and system metrics
@@ -215,7 +215,7 @@ Once the backend is running, visit:
 #### Image Processing
 - `POST /api/v1/process-anonymous` - Process image without authentication (5 free tries)
 - `GET /api/v1/anonymous-usage` - Check remaining free tries
-- `POST /api/v1/process` - Process image (authenticated users, 50/day)
+- `POST /api/v1/process` - Process image (authenticated users, unlimited)
 - `GET /api/v1/stats` - Get user statistics
 
 #### Admin (requires admin role)
@@ -241,7 +241,7 @@ Once the backend is running, visit:
 
 ### Free Tier Limits
 - **Anonymous Users**: 5 free tries (tracked by IP address)
-- **Registered Users**: 50 images per day
+- **Registered Users**: Unlimited background removal
 - No credit card required
 - Forever free plan
 
@@ -356,7 +356,7 @@ alembic downgrade -1
 - Password hashing with bcrypt
 - JWT token-based authentication
 - CORS protection
-- Rate limiting (50 images/day, 5 anonymous tries)
+- Rate limiting (5 anonymous tries)
 - Input validation and sanitization
 - SQL injection protection via SQLAlchemy
 - Secure session management (7-day expiration)

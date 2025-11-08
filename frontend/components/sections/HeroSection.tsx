@@ -18,10 +18,13 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useSession, getSession } from "next-auth/react";
 import { API_BASE_URL } from "@/lib/api-config";
 
 export function HeroSection() {
   const router = useRouter();
+  const { data: session } = useSession();
+  const isLoggedIn = !!session;
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [processedBlob, setProcessedBlob] = useState<Blob | null>(null);
@@ -30,10 +33,12 @@ export function HeroSection() {
   const [remainingTries, setRemainingTries] = useState<number>(5);
   const [showSignupModal, setShowSignupModal] = useState(false);
 
-  // Check remaining tries on mount
+  // Check remaining tries on mount (only for anonymous users)
   useEffect(() => {
-    checkRemainingTries();
-  }, []);
+    if (!isLoggedIn) {
+      checkRemainingTries();
+    }
+  }, [isLoggedIn]);
 
   const checkRemainingTries = async () => {
     try {
@@ -83,8 +88,8 @@ export function HeroSection() {
   const handleRemoveBackground = async () => {
     if (!selectedFile) return;
 
-    // Check if user has reached limit
-    if (remainingTries <= 0) {
+    // Check anonymous user limit (only for non-logged-in users)
+    if (!isLoggedIn && remainingTries <= 0) {
       setShowSignupModal(true);
       return;
     }
@@ -96,37 +101,53 @@ export function HeroSection() {
       const formData = new FormData();
       formData.append("file", selectedFile);
 
-      const response = await axios.post(`${API_BASE_URL}/process-anonymous`, formData, {
+      // Use authenticated endpoint if logged in, anonymous endpoint if not
+      const endpoint = isLoggedIn ? `${API_BASE_URL}/process` : `${API_BASE_URL}/process-anonymous`;
+      
+      // Create axios config with auth token if logged in
+      const config: any = {
         headers: {
           "Content-Type": "multipart/form-data",
         },
         responseType: "blob",
-      });
+      };
 
-      // Get remaining tries from response header
-      const remaining = response.headers["x-remaining-tries"];
-      console.log("Response headers:", response.headers);
-      console.log("Remaining tries from header:", remaining);
-      
-      if (remaining !== undefined) {
-        const remainingCount = parseInt(remaining);
-        console.log("Updating remaining tries to:", remainingCount);
-        setRemainingTries(remainingCount);
-      } else {
-        console.warn("X-Remaining-Tries header not found in response");
+      // Add auth token if logged in
+      if (isLoggedIn) {
+        const currentSession = await getSession();
+        if (currentSession && (currentSession as any).accessToken) {
+          config.headers.Authorization = `Bearer ${(currentSession as any).accessToken}`;
+        }
+      }
+
+      const response = await axios.post(endpoint, formData, config);
+
+      // Get remaining tries from response header (only for anonymous users)
+      if (!isLoggedIn) {
+        const remaining = response.headers["x-remaining-tries"];
+        console.log("Response headers:", response.headers);
+        console.log("Remaining tries from header:", remaining);
+        
+        if (remaining !== undefined) {
+          const remainingCount = parseInt(remaining);
+          console.log("Updating remaining tries to:", remainingCount);
+          setRemainingTries(remainingCount);
+        } else {
+          console.warn("X-Remaining-Tries header not found in response");
+        }
+
+        // Show signup prompt if this was the last free try
+        if (remaining !== undefined && parseInt(remaining) === 0) {
+          console.log("Last free try used! Showing signup modal...");
+          setTimeout(() => {
+            setShowSignupModal(true);
+          }, 2000);
+        }
       }
 
       setProcessedBlob(response.data);
       setStatus("completed");
       toast.success("Background removed successfully! 🎉");
-
-      // Show signup prompt if this was the last free try
-      if (remaining !== undefined && parseInt(remaining) === 0) {
-        console.log("Last free try used! Showing signup modal...");
-        setTimeout(() => {
-          setShowSignupModal(true);
-        }, 2000);
-      }
     } catch (error: any) {
       console.error("Processing error:", error);
       setStatus("error");
@@ -180,19 +201,19 @@ export function HeroSection() {
   return (
     <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute inset-0 gradient-mesh opacity-50" />
-      <div className="absolute top-20 left-10 w-72 h-72 bg-primary-200 rounded-full blur-3xl opacity-20 animate-pulse" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-200 rounded-full blur-3xl opacity-20 animate-pulse delay-1000" />
+      <div className="absolute inset-0 gradient-mesh opacity-50 dark:opacity-30" />
+      <div className="absolute top-20 left-10 w-72 h-72 bg-primary-200 dark:bg-primary-900/30 rounded-full blur-3xl opacity-20 animate-pulse" />
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-200 dark:bg-purple-900/30 rounded-full blur-3xl opacity-20 animate-pulse delay-1000" />
 
       <div className="relative max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12 animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 text-primary-700 rounded-full text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium mb-6">
             <Sparkles className="w-4 h-4" />
             <span>AI-Powered • Instant • Free to Try</span>
           </div>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-gray-900 dark:text-gray-100">
             Remove Image{" "}
             <span className="bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
               Backgrounds
@@ -201,14 +222,16 @@ export function HeroSection() {
             Instantly & Free
           </h1>
 
-          <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-4">
+          <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto mb-4">
             Try our AI-powered background remover right now! No signup required for your first 5 images.
           </p>
 
-          <div className="flex items-center justify-center gap-2 text-sm text-primary-700 font-medium">
+          <div className="flex items-center justify-center gap-2 text-sm text-primary-700 dark:text-primary-400 font-medium">
             <Zap className="w-4 h-4" />
             <span>
-              {remainingTries > 0
+              {isLoggedIn
+                ? "Unlimited background removal"
+                : remainingTries > 0
                 ? `${remainingTries} free ${remainingTries === 1 ? "try" : "tries"} remaining`
                 : "Sign up for unlimited access"}
             </span>
@@ -226,21 +249,21 @@ export function HeroSection() {
                 transition-all duration-300 border-2 border-dashed
                 ${
                   isDragActive
-                    ? "border-primary-500 bg-primary-50 scale-105"
-                    : "border-gray-300 hover:border-primary-400 hover:bg-gray-50"
+                    ? "border-primary-500 bg-primary-50 dark:bg-primary-900/20 scale-105"
+                    : "border-gray-300 dark:border-gray-600 hover:border-primary-400 dark:hover:border-primary-500 hover:bg-gray-50 dark:hover:bg-gray-800/50"
                 }
               `}
             >
               <input {...getInputProps()} />
               <div className="space-y-6">
-                <div className="w-24 h-24 bg-gradient-to-br from-primary-100 to-purple-100 rounded-2xl flex items-center justify-center mx-auto">
-                  <Upload className="w-12 h-12 text-primary-600" />
+                <div className="w-24 h-24 bg-gradient-to-br from-primary-100 to-purple-100 dark:from-primary-900/30 dark:to-purple-900/30 rounded-2xl flex items-center justify-center mx-auto">
+                  <Upload className="w-12 h-12 text-primary-600 dark:text-primary-400" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
                     {isDragActive ? "Drop your image here" : "Upload or Drag & Drop"}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-400">
                     PNG, JPG, or WEBP • Max 10MB
                   </p>
                 </div>
@@ -257,11 +280,11 @@ export function HeroSection() {
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Before */}
                 <div className="space-y-3">
-                  <div className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                    <div className="w-2 h-2 bg-gray-500 rounded-full" />
+                  <div className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                    <div className="w-2 h-2 bg-gray-500 dark:bg-gray-400 rounded-full" />
                     Original
                   </div>
-                  <div className="relative aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl overflow-hidden">
+                  <div className="relative aspect-square bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-2xl overflow-hidden">
                     {previewUrl && (
                       <img
                         src={previewUrl}
@@ -274,14 +297,14 @@ export function HeroSection() {
 
                 {/* After */}
                 <div className="space-y-3">
-                  <div className="text-sm font-semibold text-primary-700 flex items-center gap-2">
-                    <div className="w-2 h-2 bg-primary-500 rounded-full animate-pulse" />
+                  <div className="text-sm font-semibold text-primary-700 dark:text-primary-400 flex items-center gap-2">
+                    <div className="w-2 h-2 bg-primary-500 dark:bg-primary-400 rounded-full animate-pulse" />
                     Processed
                     <Sparkles className="w-4 h-4" />
                   </div>
-                  <div className="relative aspect-square bg-gradient-to-br from-primary-50 to-purple-50 rounded-2xl overflow-hidden border-2 border-primary-200">
+                  <div className="relative aspect-square bg-gradient-to-br from-primary-50 to-purple-50 dark:from-primary-900/20 dark:to-purple-900/20 rounded-2xl overflow-hidden border-2 border-primary-200 dark:border-primary-800">
                     {status === "idle" && (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400">
+                      <div className="w-full h-full flex items-center justify-center text-gray-400 dark:text-gray-500">
                         <div className="text-center space-y-2">
                           <Sparkles className="w-12 h-12 mx-auto opacity-50" />
                           <p className="text-sm">Click &quot;Remove Background&quot;</p>
@@ -292,8 +315,8 @@ export function HeroSection() {
                       <div className="w-full h-full flex items-center justify-center">
                         <div className="text-center space-y-3">
                           <LoadingSpinner size="lg" />
-                          <p className="text-sm font-medium text-gray-700">AI is working...</p>
-                          <p className="text-xs text-gray-500">⚡ 2-5 seconds</p>
+                          <p className="text-sm font-medium text-gray-700 dark:text-gray-300">AI is working...</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">⚡ 2-5 seconds</p>
                         </div>
                       </div>
                     )}
@@ -305,7 +328,7 @@ export function HeroSection() {
                       />
                     )}
                     {status === "error" && (
-                      <div className="w-full h-full flex items-center justify-center text-red-500">
+                      <div className="w-full h-full flex items-center justify-center text-red-500 dark:text-red-400">
                         <div className="text-center space-y-2">
                           <AlertCircle className="w-12 h-12 mx-auto" />
                           <p className="text-sm">{errorMessage}</p>
@@ -325,7 +348,7 @@ export function HeroSection() {
                       variant="primary"
                       onClick={handleRemoveBackground}
                       icon={<Sparkles className="w-5 h-5" />}
-                      disabled={remainingTries <= 0}
+                      disabled={!isLoggedIn && remainingTries <= 0}
                     >
                       Remove Background
                     </Button>
@@ -377,9 +400,9 @@ export function HeroSection() {
               </div>
 
               {/* Info Banner */}
-              {remainingTries > 0 && status === "idle" && (
-                <div className="bg-primary-50 border border-primary-200 rounded-xl p-4 text-center">
-                  <p className="text-sm text-primary-700">
+              {!isLoggedIn && remainingTries > 0 && status === "idle" && (
+                <div className="bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-xl p-4 text-center">
+                  <p className="text-sm text-primary-700 dark:text-primary-400">
                     <strong>{remainingTries}</strong> free {remainingTries === 1 ? "try" : "tries"} remaining •{" "}
                     <button
                       onClick={() => router.push("/signup")}
@@ -391,23 +414,30 @@ export function HeroSection() {
                   </p>
                 </div>
               )}
+              {isLoggedIn && status === "idle" && (
+                <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4 text-center">
+                  <p className="text-sm text-green-700 dark:text-green-400">
+                    ✓ Unlimited background removal • No limits
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>
 
         {/* Trust Indicators */}
         <div className="mt-16 text-center">
-          <div className="flex flex-wrap justify-center items-center gap-8 text-gray-600">
+          <div className="flex flex-wrap justify-center items-center gap-8 text-gray-600 dark:text-gray-400">
             <div className="flex items-center gap-2">
-              <Check className="w-5 h-5 text-green-500" />
+              <Check className="w-5 h-5 text-green-500 dark:text-green-400" />
               <span className="text-sm">No credit card required</span>
             </div>
             <div className="flex items-center gap-2">
-              <Check className="w-5 h-5 text-green-500" />
+              <Check className="w-5 h-5 text-green-500 dark:text-green-400" />
               <span className="text-sm">2-5 second processing</span>
             </div>
             <div className="flex items-center gap-2">
-              <Check className="w-5 h-5 text-green-500" />
+              <Check className="w-5 h-5 text-green-500 dark:text-green-400" />
               <span className="text-sm">High-quality results</span>
             </div>
           </div>
@@ -416,16 +446,16 @@ export function HeroSection() {
 
       {/* Signup Modal */}
       {showSignupModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/50 dark:bg-black/70 flex items-center justify-center z-50 p-4">
           <div className="glass rounded-3xl p-8 max-w-md w-full space-y-6 animate-slide-up">
             <div className="text-center space-y-4">
-              <div className="w-20 h-20 bg-gradient-to-br from-primary-100 to-purple-100 rounded-2xl flex items-center justify-center mx-auto">
-                <Sparkles className="w-10 h-10 text-primary-600" />
+              <div className="w-20 h-20 bg-gradient-to-br from-primary-100 to-purple-100 dark:from-primary-900/30 dark:to-purple-900/30 rounded-2xl flex items-center justify-center mx-auto">
+                <Sparkles className="w-10 h-10 text-primary-600 dark:text-primary-400" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 Love QuickBG? Sign Up for More!
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-400">
                 You&apos;ve used all 5 free tries. Create an account to remove backgrounds from unlimited images!
               </p>
             </div>
@@ -451,24 +481,24 @@ export function HeroSection() {
               </Button>
               <button
                 onClick={() => setShowSignupModal(false)}
-                className="w-full text-sm text-gray-500 hover:text-gray-700 py-2"
+                className="w-full text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 py-2"
               >
                 Maybe later
               </button>
             </div>
 
-            <div className="pt-4 border-t border-gray-200">
+            <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
               <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Check className="w-4 h-4 text-green-500" />
-                  <span>50 images/day free forever</span>
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                  <Check className="w-4 h-4 text-green-500 dark:text-green-400" />
+                  <span>Unlimited background removal</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Check className="w-4 h-4 text-green-500" />
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                  <Check className="w-4 h-4 text-green-500 dark:text-green-400" />
                   <span>High-quality downloads</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Check className="w-4 h-4 text-green-500" />
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                  <Check className="w-4 h-4 text-green-500 dark:text-green-400" />
                   <span>No credit card required</span>
                 </div>
               </div>
