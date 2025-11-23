@@ -3,8 +3,10 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/Card";
-import { HelpCircle, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { HelpCircle, ChevronDown, ArrowLeft } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
 
 const faqs = [
   {
@@ -12,7 +14,7 @@ const faqs = [
     questions: [
       {
         q: "How does QuickBG work?",
-        a: "QuickBG uses advanced AI technology (U²-Net) to automatically detect and remove backgrounds from your images. Simply upload your image, and our AI processes it in 2-5 seconds. You'll get a high-quality PNG with a transparent background, ready to download."
+        a: "QuickBG uses advanced AI technology (ISNet) to automatically detect and remove backgrounds from your images. Simply upload your image, and our AI processes it with professional quality. You'll get a high-quality PNG with smooth edges and a transparent background, ready to download."
       },
       {
         q: "Do I need to sign up to use QuickBG?",
@@ -67,7 +69,7 @@ const faqs = [
     questions: [
       {
         q: "What AI technology powers QuickBG?",
-        a: "We use the U²-Net (u2netp) AI model, which is specifically designed for accurate background removal. It's been optimized for speed and runs 4x faster than standard models."
+        a: "We use the ISNet AI model (isnet-general-use), which delivers professional-grade results with smooth edges and precise detail handling. It's the same quality standard used by premium background removal services."
       },
       {
         q: "Why is my first upload slower?",
@@ -117,7 +119,7 @@ const faqs = [
       },
       {
         q: "How do I delete my account?",
-        a: "Contact us at support@quickbg.com and we'll delete your account within 24 hours. Remember, we don't store any of your images anyway!"
+        a: "Contact us at contact@quickbg.app and we'll delete your account within 24 hours. Remember, we don't store any of your images anyway!"
       },
     ]
   },
@@ -155,21 +157,33 @@ export default function FAQPage() {
       <main className="pt-20">
         {/* Hero Section */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-primary-50 to-white dark:from-gray-800 dark:to-gray-900">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm">
-              <HelpCircle className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-              <span className="text-sm font-medium text-primary-700 dark:text-primary-300">FAQ</span>
+          <div className="max-w-4xl mx-auto space-y-6">
+            {/* Back to Home Button */}
+            <div className="flex justify-start">
+              <Link href="/">
+                <Button variant="ghost" size="sm" className="gap-2">
+                  <ArrowLeft className="w-4 h-4" />
+                  Back to Home
+                </Button>
+              </Link>
             </div>
+
+            <div className="text-center space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm">
+                <HelpCircle className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                <span className="text-sm font-medium text-primary-700 dark:text-primary-300">FAQ</span>
+              </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100">
               Frequently Asked
               <span className="block bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
                 Questions
               </span>
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-              Everything you need to know about QuickBG. Can&apos;t find what you&apos;re looking for? 
-              Contact us and we&apos;ll get back to you ASAP!
-            </p>
+              <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+                Everything you need to know about QuickBG. Can&apos;t find what you&apos;re looking for? 
+                Contact us and we&apos;ll get back to you ASAP!
+              </p>
+            </div>
           </div>
         </section>
 

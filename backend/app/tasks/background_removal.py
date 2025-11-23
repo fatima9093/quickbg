@@ -76,7 +76,7 @@ def process_background_removal_task(self, upload_id: str, task_id: str):
         crud.update_task_status(db, task_id, TaskStatus.PROCESSING, progress=40)
         
         # Remove background
-        logger.info(f"Processing background removal with U²-Net")
+        logger.info(f"Processing background removal with ISNet (professional quality)")
         processed_bytes, metadata = remove_background(
             image_bytes,
             refine_mask=True,

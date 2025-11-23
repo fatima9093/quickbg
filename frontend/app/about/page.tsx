@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/Card";
-import { Sparkles, Zap, Shield, Heart, Users, Target, Award, TrendingUp, Globe, Lock, Check } from "lucide-react";
+import { Sparkles, Zap, Shield, Heart, Users, Target, Award, TrendingUp, Globe, Lock, Check, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 
@@ -12,21 +12,33 @@ export default function AboutPage() {
       <main className="pt-20">
         {/* Hero Section */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-primary-50 to-white dark:from-gray-800 dark:to-gray-900">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm">
-              <Sparkles className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-              <span className="text-sm font-medium text-primary-700 dark:text-primary-300">About QuickBG</span>
+          <div className="max-w-4xl mx-auto space-y-6">
+            {/* Back to Home Button */}
+            <div className="flex justify-start">
+              <Link href="/">
+                <Button variant="ghost" size="sm" className="gap-2">
+                  <ArrowLeft className="w-4 h-4" />
+                  Back to Home
+                </Button>
+              </Link>
             </div>
+
+            <div className="text-center space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm">
+                <Sparkles className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                <span className="text-sm font-medium text-primary-700 dark:text-primary-300">About QuickBG</span>
+              </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100">
               Making Background Removal
               <span className="block bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
                 Simple & Free
               </span>
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto">
-              We believe everyone should have access to professional-quality image editing tools. 
-              That&apos;s why we built QuickBG - a fast, private, and completely free background removal service.
-            </p>
+              <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto">
+                We believe everyone should have access to professional-quality image editing tools. 
+                That&apos;s why we built QuickBG - a fast, private, and completely free background removal service.
+              </p>
+            </div>
           </div>
         </section>
 

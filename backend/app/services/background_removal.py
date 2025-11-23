@@ -15,9 +15,9 @@ def get_session():
     """Get or create a persistent rembg session for faster processing."""
     global _session
     if _session is None:
-        logger.info("Initializing rembg session with FAST u2netp model (one-time setup)")
-        # Use u2netp (portrait) - 4x FASTER than u2net, still excellent quality
-        _session = new_session("u2netp")  # Lightweight model - MUCH FASTER!
+        logger.info("Initializing rembg session with high-quality isnet-general-use model (one-time setup)")
+        # Use isnet-general-use for professional quality (like Remove.bg)
+        _session = new_session("isnet-general-use")  # Best balance of speed & quality
     return _session
 
 
@@ -28,7 +28,7 @@ def remove_background(
     alpha_matting: bool = False  # Disabled by default for speed
 ) -> Tuple[bytes, dict]:
     """
-    Remove background from image using rembg (U²-Net) - OPTIMIZED FOR SPEED.
+    Remove background from image using rembg (ISNet) - OPTIMIZED FOR QUALITY.
     
     Args:
         image_bytes: Input image as bytes
@@ -43,21 +43,21 @@ def remove_background(
         Exception: If processing fails
     """
     try:
-        logger.info("Starting FAST background removal")
+        logger.info("Starting high-quality background removal")
         
         # Load input image
         input_image = Image.open(BytesIO(image_bytes))
         original_size = input_image.size
         logger.info(f"Input image size: {original_size}")
         
-        # SPEED OPTIMIZATION: Aggressive resize for MAXIMUM speed
-        max_dimension = 800  # Process at max 800px for SPEED (still good quality!)
+        # QUALITY OPTIMIZATION: Process at higher resolution for better edges
+        max_dimension = 1920  # Higher resolution = better edge quality
         if max(input_image.size) > max_dimension:
             ratio = max_dimension / max(input_image.size)
             new_size = tuple(int(dim * ratio) for dim in input_image.size)
-            logger.info(f"Resizing from {original_size} to {new_size} for FAST processing")
-            # Use BILINEAR for faster resizing (LANCZOS is slower)
-            input_image = input_image.resize(new_size, Image.Resampling.BILINEAR)
+            logger.info(f"Resizing from {original_size} to {new_size} for quality processing")
+            # Use LANCZOS for best quality resampling
+            input_image = input_image.resize(new_size, Image.Resampling.LANCZOS)
         
         # SPEED OPTIMIZATION: Compress image quality for faster processing
         if input_image.mode == 'RGBA':
@@ -67,8 +67,8 @@ def remove_background(
         if input_image.mode not in ('RGB', 'RGBA'):
             input_image = input_image.convert('RGB')
         
-        # Remove background using cached session (MUCH FASTER)
-        logger.info("Applying fast U²-Net background removal")
+        # Remove background using cached session with high-quality model
+        logger.info("Applying professional ISNet background removal")
         session = get_session()
         output_image = remove(
             input_image,

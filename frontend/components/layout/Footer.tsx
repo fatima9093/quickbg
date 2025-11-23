@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
+import Image from "next/image";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -9,14 +9,15 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
-          <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-600 to-primary-500 flex items-center justify-center shadow-lg shadow-primary-600/30">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-500 bg-clip-text text-transparent">
-                QuickBG
-              </span>
+          <div className="space-y-3">
+            <Link href="/" className="inline-block">
+              <Image
+                src="/quickbg.png"
+                alt="QuickBG Logo"
+                width={144}
+                height={144}
+                className="w-36 h-auto"
+              />
             </Link>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
               Remove image backgrounds instantly with AI-powered precision.

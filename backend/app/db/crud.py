@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from typing import Optional, List
-from datetime import date
+from datetime import date, datetime, timedelta
+import secrets
 from app.db.models import User, UserRole
 from app.core.security import get_password_hash
 from app.core.config import settings
@@ -115,4 +116,33 @@ def normalize_all_users_processing_stats(db: Session) -> None:
             updated = True
     if updated:
         db.commit()
+
+
+# Password Reset CRUD operations
+def create_password_reset_token(db: Session, user: User) -> str:
+    """Generate and store password reset token."""
+    token = secrets.token_urlsafe(32)
+    user.reset_token = token
+    user.reset_token_expires = datetime.utcnow() + timedelta(hours=1)
+    db.commit()
+    db.refresh(user)
+    return token
+
+
+def verify_reset_token(db: Session, token: str) -> Optional[User]:
+    """Verify reset token and return user if valid."""
+    user = db.query(User).filter(
+        User.reset_token == token,
+        User.reset_token_expires > datetime.utcnow()
+    ).first()
+    return user
+
+
+def reset_user_password(db: Session, user: User, new_password: str):
+    """Reset user password and clear reset token."""
+    user.hashed_password = get_password_hash(new_password)
+    user.reset_token = None
+    user.reset_token_expires = None
+    db.commit()
+    db.refresh(user)
 

@@ -1,11 +1,26 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 export const authOptions: NextAuthOptions = {
   providers: [
+    // Google OAuth Provider
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      authorization: {
+        params: {
+          prompt: "select_account",
+          access_type: "offline",
+          response_type: "code"
+        }
+      }
+    }),
+    
+    // Credentials Provider (Email/Password)
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -53,7 +68,38 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async signIn({ user, account, profile }) {
+      // Handle Google OAuth sign-in
+      if (account?.provider === "google") {
+        try {
+          // Register/login user in backend
+          const response = await axios.post(`${API_URL}/api/v1/auth/google-login`, {
+            email: user.email,
+            name: user.name,
+            google_id: account.providerAccountId,
+            avatar: user.image,
+          });
+
+          if (response.data.access_token) {
+            // Store backend data in user object
+            user.id = response.data.user.id;
+            user.role = response.data.user.role;
+            (user as any).accessToken = response.data.access_token;
+            return true;
+          }
+          
+          return false;
+        } catch (error) {
+          console.error("Google sign-in error:", error);
+          return false;
+        }
+      }
+      
+      // Allow credentials login
+      return true;
+    },
+    
+    async jwt({ token, user, account }) {
       // On signin, user object contains our returned data
       if (user) {
         token.id = user.id;
@@ -64,6 +110,7 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
+    
     async session({ session, token }) {
       // Pass token data to session
       if (session.user) {

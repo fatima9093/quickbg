@@ -1,7 +1,9 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/Card";
-import { FileText, Shield, Users, AlertTriangle, Check, X, Scale } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { FileText, Shield, Users, AlertTriangle, Check, X, Scale, ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 export default function TermsPage() {
   return (
@@ -10,20 +12,32 @@ export default function TermsPage() {
       <main className="pt-20">
         {/* Hero Section */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-primary-50 to-white dark:from-gray-800 dark:to-gray-900">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm">
-              <FileText className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-              <span className="text-sm font-medium text-primary-700 dark:text-primary-300">Terms of Service</span>
+          <div className="max-w-4xl mx-auto space-y-6">
+            {/* Back to Home Button */}
+            <div className="flex justify-start">
+              <Link href="/">
+                <Button variant="ghost" size="sm" className="gap-2">
+                  <ArrowLeft className="w-4 h-4" />
+                  Back to Home
+                </Button>
+              </Link>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100">
-              Terms of
-              <span className="block bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
-                Service
-              </span>
-            </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-              Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-            </p>
+
+            <div className="text-center space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm">
+                <FileText className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                <span className="text-sm font-medium text-primary-700 dark:text-primary-300">Terms of Service</span>
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100">
+                Terms of
+                <span className="block bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
+                  Service
+                </span>
+              </h1>
+              <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+                Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+              </p>
+            </div>
           </div>
         </section>
 
@@ -103,7 +117,7 @@ export default function TermsPage() {
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3 mt-6">Account Responsibility</h3>
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                   You are responsible for all activity under your account. If you believe your account 
-                  has been compromised, notify us immediately at support@quickbg.com.
+                  has been compromised, notify us immediately at contact@quickbg.app.
                 </p>
               </section>
 

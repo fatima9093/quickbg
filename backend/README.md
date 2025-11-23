@@ -4,7 +4,7 @@ Production-grade FastAPI backend for AI-powered background removal using U²-Net
 
 ## Features
 
-- ✅ **U²-Net Background Removal** with mask refinement and alpha smoothing
+- ✅ **ISNet Background Removal** with professional quality edge detection
 - ✅ **Async Job Queue** with Celery + Redis
 - ✅ **S3 Storage** with presigned URLs for secure downloads
 - ✅ **Comprehensive Health Checks** (DB, Redis, S3)
@@ -174,7 +174,7 @@ The background removal task performs these steps:
 
 1. **Download** original image from S3
 2. **Validate** image (size, dimensions, format)
-3. **Apply U²-Net** model for background removal
+3. **Apply ISNet** model for professional background removal
 4. **Refine mask edges** using morphological operations
 5. **Trim transparent areas** with padding
 6. **Upload result** to S3 as PNG

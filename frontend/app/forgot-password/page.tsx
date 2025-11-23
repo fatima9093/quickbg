@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { Sparkles, Mail, ArrowLeft, Check } from "lucide-react";
+import { Mail, ArrowLeft, Check } from "lucide-react";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -15,11 +16,30 @@ export default function ForgotPasswordPage() {
     e.preventDefault();
     setLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const response = await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        // Still show success for security (prevent email enumeration)
+        setSubmitted(true);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      // Still show success message for security
       setSubmitted(true);
-    }, 1500);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -27,13 +47,16 @@ export default function ForgotPasswordPage() {
       <div className="w-full max-w-md space-y-8 animate-fade-in">
         {/* Logo */}
         <div className="text-center">
-          <Link href="/" className="inline-flex items-center gap-2 group">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-600 to-primary-500 flex items-center justify-center shadow-lg shadow-primary-600/30 group-hover:shadow-xl group-hover:scale-110 transition-all duration-200">
-              <Sparkles className="w-6 h-6 text-white" />
+          <Link href="/" className="inline-flex items-center group">
+            <div className="relative w-36 h-36 group-hover:scale-110 transition-all duration-200">
+              <Image
+                src="/quickbg.png"
+                alt="QuickBG Logo"
+                fill
+                className="object-contain"
+                priority
+              />
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-primary-500 bg-clip-text text-transparent">
-              QuickBG
-            </span>
           </Link>
         </div>
 

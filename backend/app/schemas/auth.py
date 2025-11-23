@@ -30,3 +30,28 @@ class LoginResponse(BaseModel):
     token_type: str
     user: UserResponse
 
+
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+
+class ResetPasswordRequest(BaseModel):
+    token: str
+    new_password: str
+
+
+class ForgotPasswordResponse(BaseModel):
+    message: str
+    token: Optional[str] = None
+    name: Optional[str] = None
+
+
+class MessageResponse(BaseModel):
+    message: str
+
+
+class GoogleLoginRequest(BaseModel):
+    email: str
+    name: str
+    google_id: str
+    avatar: Optional[str] = None

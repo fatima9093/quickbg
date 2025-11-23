@@ -36,7 +36,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=settings.APP_NAME,
     version="1.0.0",
-    description="AI-powered background removal API using U²-Net",
+    description="AI-powered background removal API using ISNet",
     openapi_url=f"/api/{settings.API_VERSION}/openapi.json",
     lifespan=lifespan
 )

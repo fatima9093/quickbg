@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { Sparkles, Mail, Lock, User, Check, AlertCircle } from "lucide-react";
+import { GoogleButton } from "@/components/ui/GoogleButton";
+import { Mail, Lock, User, Check, AlertCircle, ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { authApi } from "@/lib/api/auth";
 import toast from "react-hot-toast";
@@ -19,6 +21,7 @@ export default function SignupPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,15 +102,28 @@ export default function SignupPage() {
       {/* Right Side - Form */}
       <div className="flex-1 flex items-center justify-center p-8">
         <div className="w-full max-w-md space-y-8 animate-fade-in">
+          {/* Back to Home Button */}
+          <div className="flex justify-start">
+            <Link href="/">
+              <Button variant="ghost" size="sm" className="gap-2">
+                <ArrowLeft className="w-4 h-4" />
+                Back to Home
+              </Button>
+            </Link>
+          </div>
+
           {/* Logo */}
           <div className="text-center">
-            <Link href="/" className="inline-flex items-center gap-2 group">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-600 to-primary-500 flex items-center justify-center shadow-lg shadow-primary-600/30 group-hover:shadow-xl group-hover:scale-110 transition-all duration-200">
-                <Sparkles className="w-6 h-6 text-white" />
+            <Link href="/" className="inline-flex items-center group">
+              <div className="relative w-36 h-36 group-hover:scale-110 transition-all duration-200">
+                <Image
+                  src="/quickbg.png"
+                  alt="QuickBG Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-primary-500 bg-clip-text text-transparent">
-                QuickBG
-              </span>
             </Link>
           </div>
 
@@ -153,11 +169,20 @@ export default function SignupPage() {
 
             <Input
               label="Password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="••••••••"
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               icon={<Lock className="w-5 h-5" />}
+              rightIcon={
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                >
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+              }
               required
             />
 
@@ -188,6 +213,21 @@ export default function SignupPage() {
               Create account
             </Button>
           </form>
+
+          {/* Divider */}
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400">
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          {/* Google Sign In */}
+          <GoogleButton loading={loading} callbackUrl="/" />
 
           {/* Sign in link */}
           <p className="text-center text-gray-600 dark:text-gray-400">

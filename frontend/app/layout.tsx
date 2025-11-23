@@ -11,6 +11,11 @@ export const metadata: Metadata = {
   description: "Remove backgrounds from images instantly with AI-powered precision. Fast, secure, and easy to use.",
   keywords: ["background removal", "AI", "image processing", "photo editing", "transparent background"],
   authors: [{ name: "QuickBG" }],
+  icons: {
+    icon: "/FAVICON (2).png",
+    shortcut: "/FAVICON (2).png",
+    apple: "/FAVICON (2).png",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
