@@ -51,7 +51,7 @@ services:
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_REGION=${AWS_REGION:-us-east-1}
       - S3_BUCKET_NAME=${S3_BUCKET_NAME}
-      - CORS_ORIGINS=http://localhost:3002
+      - CORS_ORIGINS=http://localhost:3003
     depends_on:
       postgres:
         condition: service_healthy
@@ -93,7 +93,7 @@ services:
   #     dockerfile: Dockerfile
   #   container_name: quickbg-frontend
   #   ports:
-  #     - "3002:3002"
+  #     - "3003:3003"
   #   environment:
   #     - NEXT_PUBLIC_API_URL=http://localhost:8002
   #   volumes:

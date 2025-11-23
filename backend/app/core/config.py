@@ -30,7 +30,7 @@ class Settings(BaseSettings):
     VALIDATE_CERTS: bool = True
     
     # Frontend URL for reset links
-    FRONTEND_URL: str = os.getenv("FRONTEND_URL", "http://localhost:3002")
+    FRONTEND_URL: str = os.getenv("FRONTEND_URL", "http://localhost:3003")
     
     # Image Processing
     MAX_IMAGE_SIZE_MB: int = 10
@@ -45,7 +45,7 @@ class Settings(BaseSettings):
     MAX_IMAGES_PER_MONTH: int = 500
     
     # CORS
-    CORS_ORIGINS: List[str] = ["http://localhost:3002"]
+    CORS_ORIGINS: List[str] = ["http://localhost:3003"]
     
     class Config:
         env_file = ".env"
@@ -54,7 +54,7 @@ class Settings(BaseSettings):
 
     @property
     def get_cors_origins(self) -> List[str]:
-        origins = os.getenv("CORS_ORIGINS", "http://localhost:3002")
+        origins = os.getenv("CORS_ORIGINS", "http://localhost:3003")
         return [origin.strip() for origin in origins.split(",")]
 
 
