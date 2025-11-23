@@ -29,7 +29,7 @@ function ResetPasswordContent() {
     }
 
     // Verify token with backend
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8002';
     fetch(`${backendUrl}/api/v1/auth/verify-reset-token/${token}`)
       .then(res => {
         if (res.ok) {
@@ -62,7 +62,7 @@ function ResetPasswordContent() {
     setLoading(true);
 
     try {
-      const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8002';
       const response = await fetch(`${backendUrl}/api/v1/auth/reset-password`, {
         method: 'POST',
         headers: {

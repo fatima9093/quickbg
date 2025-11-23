@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Call backend - it handles token generation AND email sending
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8002';
     const backendResponse = await fetch(`${backendUrl}/api/v1/auth/forgot-password`, {
       method: 'POST',
       headers: {

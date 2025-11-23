@@ -1,7 +1,7 @@
 // API Configuration
-// Note: NEXT_PUBLIC_API_URL should be just the host (e.g., "http://localhost:8000")
+// Note: NEXT_PUBLIC_API_URL should be just the host (e.g., "http://localhost:8002")
 // We append /api/v1 here to match the backend routing
-const API_HOST = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_HOST = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8002";
 export const API_BASE_URL = `${API_HOST}/api/v1`;
 
 // API Endpoints (paths relative to /api/v1)
