@@ -67,13 +67,13 @@ Complete guide to implement "Continue with Google" authentication in QuickBG.
 
 **Authorized JavaScript origins:**
 ```
-http://localhost:3000
+http://localhost:3003
 https://quickbg.app
 ```
 
 **Authorized redirect URIs:**
 ```
-http://localhost:3000/api/auth/callback/google
+http://localhost:3003/api/auth/callback/google
 https://quickbg.app/api/auth/callback/google
 ```
 
@@ -109,7 +109,7 @@ Create or update `quickbg/frontend/.env.local`:
 
 ```env
 # NextAuth Configuration
-NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_URL=http://localhost:3003
 NEXTAUTH_SECRET=generate-a-random-secret-here
 
 # Google OAuth
@@ -509,7 +509,7 @@ npm run dev
 ```
 
 3. **Test Flow:**
-   - Go to http://localhost:3000/login
+   - Go to http://localhost:3003/login
    - Click "Continue with Google"
    - Select your Google account
    - Verify you're redirected and logged in

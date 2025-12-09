@@ -64,7 +64,7 @@ alembic upgrade head
 
 **Start API Server:**
 ```bash
-uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+uvicorn app.main:app --host 0.0.0.0 --port 8002 --reload
 ```
 
 **Start Celery Worker:**
@@ -72,7 +72,7 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 celery -A app.tasks.celery_app worker --loglevel=info --concurrency=2
 ```
 
-**API Docs:** http://localhost:8000/api/v1/docs
+**API Docs:** http://localhost:8002/api/v1/docs
 
 ## API Usage
 
@@ -82,14 +82,14 @@ celery -A app.tasks.celery_app worker --loglevel=info --concurrency=2
 
 **Option A: Multipart File Upload**
 ```bash
-curl -X POST "http://localhost:8000/api/v1/uploads" \
+curl -X POST "http://localhost:8002/api/v1/uploads" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -F "file=@/path/to/image.jpg"
 ```
 
 **Option B: S3 Key Reference**
 ```bash
-curl -X POST "http://localhost:8000/api/v1/uploads" \
+curl -X POST "http://localhost:8002/api/v1/uploads" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -H "Content-Type: multipart/form-data" \
   -F "s3_key=originals/existing-image.jpg"
@@ -110,7 +110,7 @@ curl -X POST "http://localhost:8000/api/v1/uploads" \
 **GET** `/api/v1/tasks/{task_id}`
 
 ```bash
-curl -X GET "http://localhost:8000/api/v1/tasks/xyz-789-uvw-012" \
+curl -X GET "http://localhost:8002/api/v1/tasks/xyz-789-uvw-012" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN"
 ```
 
@@ -151,7 +151,7 @@ curl -X GET "http://localhost:8000/api/v1/tasks/xyz-789-uvw-012" \
 **GET** `/api/v1/health`
 
 ```bash
-curl http://localhost:8000/api/v1/health
+curl http://localhost:8002/api/v1/health
 ```
 
 **Response:**
@@ -252,7 +252,7 @@ python scripts/create-admin.py
 
 # Get JWT token (implement auth endpoint first)
 # Then test upload
-curl -X POST "http://localhost:8000/api/v1/uploads" \
+curl -X POST "http://localhost:8002/api/v1/uploads" \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -F "file=@test-image.jpg"
 ```

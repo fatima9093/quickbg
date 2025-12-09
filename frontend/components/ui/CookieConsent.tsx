@@ -9,16 +9,33 @@ export function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check if user has already accepted cookies
+    // Check if user has already accepted cookies and if consent is still valid
     const consent = localStorage.getItem("cookieConsent");
+    const consentExpiry = localStorage.getItem("cookieConsentExpiry");
+    
     if (!consent) {
       // Show banner after a short delay for better UX
       setTimeout(() => setIsVisible(true), 1000);
+    } else if (consentExpiry) {
+      // Check if consent has expired (1 year expiry)
+      const expiryDate = new Date(consentExpiry);
+      if (expiryDate < new Date()) {
+        // Consent expired, show banner again
+        localStorage.removeItem("cookieConsent");
+        localStorage.removeItem("cookieConsentExpiry");
+        localStorage.removeItem("cookiePreferences");
+        setTimeout(() => setIsVisible(true), 1000);
+      }
     }
   }, []);
 
   const acceptCookies = () => {
+    // Set expiration date (1 year from now)
+    const expirationDate = new Date();
+    expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+    
     localStorage.setItem("cookieConsent", "accepted");
+    localStorage.setItem("cookieConsentExpiry", expirationDate.toISOString());
     localStorage.setItem("cookiePreferences", JSON.stringify({
       essential: true,
       analytics: false,

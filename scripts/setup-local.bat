@@ -132,7 +132,7 @@ echo    $ cd frontend
 echo    $ npm run dev
 echo.
 echo 3. Access the application:
-echo    - Frontend: http://localhost:3000
+echo    - Frontend: http://localhost:3003
 echo    - Backend API: http://localhost:8000
 echo    - API Docs: http://localhost:8000/docs
 echo.

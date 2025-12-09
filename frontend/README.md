@@ -122,7 +122,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+Open [http://localhost:3003](http://localhost:3003)
 
 ### Build
 
@@ -148,8 +148,8 @@ npm run type-check
 Create `.env.local`:
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:8000
-NEXTAUTH_URL=http://localhost:3000
+NEXT_PUBLIC_API_URL=http://localhost:8002
+NEXTAUTH_URL=http://localhost:3003
 NEXTAUTH_SECRET=your-secret-key
 DATABASE_URL=postgresql://user:password@localhost:5432/quickbg
 ```
@@ -247,8 +247,8 @@ npm run build
 ### Port Already in Use
 
 ```bash
-# Kill process on port 3000
-npx kill-port 3000
+# Kill process on port 3003
+npx kill-port 3003
 ```
 
 ### Module Not Found

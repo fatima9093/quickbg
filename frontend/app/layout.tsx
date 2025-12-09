@@ -37,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html className="scroll-smooth" suppressHydrationWarning>
       <body className={inter.className}>
         <Script
           id="theme-init"

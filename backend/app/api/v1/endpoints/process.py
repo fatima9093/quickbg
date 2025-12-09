@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-# In-memory storage for anonymous user limits (use Redis in production)
+# In-memory storage for anonymous user limits
+# NOTE: In production, use Redis for distributed rate limiting across multiple servers
 anonymous_usage = {}
 
 

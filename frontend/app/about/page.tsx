@@ -1,11 +1,15 @@
+"use client";
+
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Sparkles, Zap, Shield, Heart, Users, Target, Award, TrendingUp, Globe, Lock, Check, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { useTranslation } from "@/lib/useTranslation";
 
 export default function AboutPage() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -18,7 +22,7 @@ export default function AboutPage() {
               <Link href="/">
                 <Button variant="ghost" size="sm" className="gap-2">
                   <ArrowLeft className="w-4 h-4" />
-                  Back to Home
+                  {t("common.backToHome")}
                 </Button>
               </Link>
             </div>
@@ -26,17 +30,16 @@ export default function AboutPage() {
             <div className="text-center space-y-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm">
                 <Sparkles className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                <span className="text-sm font-medium text-primary-700 dark:text-primary-300">About QuickBG</span>
+                <span className="text-sm font-medium text-primary-700 dark:text-primary-300">{t("about.badge")}</span>
               </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100">
-              Making Background Removal
+              {t("about.title")}
               <span className="block bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
-                Simple & Free
+                {t("about.titleHighlight")}
               </span>
             </h1>
               <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto">
-                We believe everyone should have access to professional-quality image editing tools. 
-                That&apos;s why we built QuickBG - a fast, private, and completely free background removal service.
+                {t("about.description")}
               </p>
             </div>
           </div>

@@ -7,6 +7,8 @@ import { Menu, X, Sun, Moon, ChevronDown, LogOut } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useTheme } from "@/lib/theme-provider";
+import { LanguageSelector } from "@/components/ui/LanguageSelector";
+import { useTranslation } from "@/lib/useTranslation";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -14,6 +16,7 @@ export function Navbar() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { data: session } = useSession();
   const { theme, toggleTheme } = useTheme();
+  const { t } = useTranslation();
   const isAdmin = session?.user?.role === "admin";
   const displayName = session?.user?.name || (session?.user?.email ? session.user.email.split("@")[0] : undefined);
   const userInitial = displayName ? displayName.charAt(0).toUpperCase() : "U";
@@ -51,18 +54,21 @@ export function Navbar() {
           {/* Desktop Navigation - Centered */}
           <div className="hidden md:flex items-center justify-center flex-1 gap-8">
             <Link href="/#features" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-              Features
+              {t("nav.features")}
             </Link>
             <Link href="/about" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-              About
+              {t("nav.about")}
             </Link>
             <Link href="/contact" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-              Contact
+              {t("nav.contact")}
             </Link>
           </div>
 
           {/* Right side auth controls */}
           <div className="hidden md:flex items-center gap-3 flex-shrink-0">
+            {/* Language Selector */}
+            <LanguageSelector />
+            
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
@@ -79,17 +85,17 @@ export function Navbar() {
             {!session ? (
               <>
                 <Link href="/login">
-                  <Button variant="ghost" size="sm">Sign In</Button>
+                  <Button variant="ghost" size="sm">{t("nav.signIn")}</Button>
                 </Link>
                 <Link href="/signup">
-                  <Button variant="primary" size="sm">Get Started</Button>
+                  <Button variant="primary" size="sm">{t("nav.getStarted")}</Button>
                 </Link>
               </>
             ) : (
               <>
                 {isAdmin && (
                   <Link href="/admin">
-                    <Button variant="outline" size="sm">Admin</Button>
+                    <Button variant="outline" size="sm">{t("nav.admin")}</Button>
                   </Link>
                 )}
                 
@@ -128,7 +134,7 @@ export function Navbar() {
                         className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                       >
                         <LogOut className="w-4 h-4" />
-                        Logout
+                        {t("nav.logout")}
                       </button>
                     </div>
                   )}
@@ -160,22 +166,27 @@ export function Navbar() {
               className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Features
+              {t("nav.features")}
             </Link>
             <Link
               href="/about"
               className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
-              About
+              {t("nav.about")}
             </Link>
             <Link
               href="/contact"
               className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Contact
+              {t("nav.contact")}
             </Link>
+            
+            {/* Mobile Language Selector */}
+            <div className="px-4 py-2">
+              <LanguageSelector />
+            </div>
             
             {/* Mobile Theme Toggle */}
             <button
@@ -188,12 +199,12 @@ export function Navbar() {
               {theme === "light" ? (
                 <>
                   <Moon className="w-5 h-5" />
-                  <span>Dark Mode</span>
+                  <span>{t("nav.darkMode")}</span>
                 </>
               ) : (
                 <>
                   <Sun className="w-5 h-5" />
-                  <span>Light Mode</span>
+                  <span>{t("nav.lightMode")}</span>
                 </>
               )}
             </button>
@@ -202,10 +213,10 @@ export function Navbar() {
               {!session ? (
                 <>
                   <Link href="/login" className="block" onClick={() => setMobileMenuOpen(false)}>
-                    <Button variant="outline" size="sm" className="w-full">Sign In</Button>
+                    <Button variant="outline" size="sm" className="w-full">{t("nav.signIn")}</Button>
                   </Link>
                   <Link href="/signup" className="block" onClick={() => setMobileMenuOpen(false)}>
-                    <Button variant="primary" size="sm" className="w-full">Get Started</Button>
+                    <Button variant="primary" size="sm" className="w-full">{t("nav.getStarted")}</Button>
                   </Link>
                 </>
               ) : (

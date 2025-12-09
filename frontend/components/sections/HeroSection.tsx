@@ -20,8 +20,10 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useSession, getSession } from "next-auth/react";
 import { API_BASE_URL } from "@/lib/api-config";
+import { useTranslation } from "@/lib/useTranslation";
 
 export function HeroSection() {
+  const { t } = useTranslation();
   const router = useRouter();
   const { data: session } = useSession();
   const isLoggedIn = !!session;
@@ -160,11 +162,11 @@ export function HeroSection() {
         reader.onload = () => {
           try {
             const errorData = JSON.parse(reader.result as string);
-            setErrorMessage(errorData.detail || "Processing failed");
-            toast.error(errorData.detail || "Processing failed");
+            setErrorMessage(errorData.detail || t("hero.processingFailed"));
+            toast.error(errorData.detail || t("hero.processingFailed"));
           } catch {
-            setErrorMessage("Processing failed. Please try again.");
-            toast.error("Processing failed. Please try again.");
+            setErrorMessage(t("hero.processingFailed"));
+            toast.error(t("hero.processingFailed"));
           }
         };
         reader.readAsText(error.response.data);
@@ -187,7 +189,7 @@ export function HeroSection() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 
-    toast.success("Downloaded successfully!");
+    toast.success(t("hero.downloadedSuccessfully"));
   };
 
   const handleReset = () => {
@@ -210,30 +212,28 @@ export function HeroSection() {
         <div className="text-center mb-12 animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium mb-6">
             <Sparkles className="w-4 h-4" />
-            <span>AI-Powered • Instant • Free to Try</span>
+            <span>{t("hero.badge")}</span>
           </div>
 
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-gray-900 dark:text-gray-100">
-            Remove Image{" "}
+            {t("hero.title")}{" "}
             <span className="bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
-              Backgrounds
+              {t("hero.subtitle")}
             </span>
-            <br />
-            Instantly & Free
           </h1>
 
           <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto mb-4">
-            Try our AI-powered background remover right now! No signup required for your first 5 images.
+            {t("hero.description")}
           </p>
 
           <div className="flex items-center justify-center gap-2 text-sm text-primary-700 dark:text-primary-400 font-medium">
             <Zap className="w-4 h-4" />
             <span>
               {isLoggedIn
-                ? "Unlimited background removal"
+                ? t("hero.unlimitedAccess")
                 : remainingTries > 0
-                ? `${remainingTries} free ${remainingTries === 1 ? "try" : "tries"} remaining`
-                : "Sign up for unlimited access"}
+                ? `${remainingTries} ${remainingTries === 1 ? t("hero.freeTryRemaining") : t("hero.freeTriesRemaining")}`
+                : t("hero.signUpForUnlimited")}
             </span>
           </div>
         </div>
@@ -261,15 +261,15 @@ export function HeroSection() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-                    {isDragActive ? "Drop your image here" : "Upload or Drag & Drop"}
+                    {isDragActive ? t("hero.dropHere") : t("hero.uploadOrDrag")}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400">
-                    PNG, JPG, or WEBP • Max 10MB
+                    {t("hero.fileTypes")}
                   </p>
                 </div>
                 <Button size="lg" variant="primary" type="button">
                   <Upload className="w-5 h-5 mr-2" />
-                  Choose Image
+                  {t("hero.chooseImage")}
                 </Button>
               </div>
             </div>
@@ -282,7 +282,7 @@ export function HeroSection() {
                 <div className="space-y-3">
                   <div className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                     <div className="w-2 h-2 bg-gray-500 dark:bg-gray-400 rounded-full" />
-                    Original
+                    {t("hero.original")}
                   </div>
                   <div className="relative aspect-square bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-2xl overflow-hidden">
                     {previewUrl && (
@@ -299,7 +299,7 @@ export function HeroSection() {
                 <div className="space-y-3">
                   <div className="text-sm font-semibold text-primary-700 dark:text-primary-400 flex items-center gap-2">
                     <div className="w-2 h-2 bg-primary-500 dark:bg-primary-400 rounded-full animate-pulse" />
-                    Processed
+                    {t("hero.processed")}
                     <Sparkles className="w-4 h-4" />
                   </div>
                   <div className="relative aspect-square bg-gradient-to-br from-primary-50 to-purple-50 dark:from-primary-900/20 dark:to-purple-900/20 rounded-2xl overflow-hidden border-2 border-primary-200 dark:border-primary-800">
@@ -307,7 +307,7 @@ export function HeroSection() {
                       <div className="w-full h-full flex items-center justify-center text-gray-400 dark:text-gray-500">
                         <div className="text-center space-y-2">
                           <Sparkles className="w-12 h-12 mx-auto opacity-50" />
-                          <p className="text-sm">Click &quot;Remove Background&quot;</p>
+                          <p className="text-sm">{t("hero.clickToRemove")}</p>
                         </div>
                       </div>
                     )}
@@ -315,15 +315,15 @@ export function HeroSection() {
                       <div className="w-full h-full flex items-center justify-center">
                         <div className="text-center space-y-3">
                           <LoadingSpinner size="lg" />
-                          <p className="text-sm font-medium text-gray-700 dark:text-gray-300">AI is working...</p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">⚡ 2-5 seconds</p>
+                          <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t("hero.aiWorking")}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">{t("hero.processingTime")}</p>
                         </div>
                       </div>
                     )}
                     {status === "completed" && processedBlob && (
                       <img
                         src={URL.createObjectURL(processedBlob)}
-                        alt="Processed"
+                        alt={t("hero.processed")}
                         className="w-full h-full object-contain"
                       />
                     )}
@@ -350,11 +350,11 @@ export function HeroSection() {
                       icon={<Sparkles className="w-5 h-5" />}
                       disabled={!isLoggedIn && remainingTries <= 0}
                     >
-                      Remove Background
+                      {t("hero.removeBackground")}
                     </Button>
                     <Button size="lg" variant="secondary" onClick={handleReset}>
                       <X className="w-5 h-5 mr-2" />
-                      Cancel
+                      {t("hero.cancel")}
                     </Button>
                   </>
                 )}
@@ -364,7 +364,7 @@ export function HeroSection() {
                     <div className="mr-2">
                       <LoadingSpinner size="sm" />
                     </div>
-                    Processing...
+                    {t("hero.processing")}
                   </Button>
                 )}
 
@@ -376,11 +376,11 @@ export function HeroSection() {
                       onClick={handleDownload}
                       icon={<Download className="w-5 h-5" />}
                     >
-                      Download Image
+                      {t("hero.downloadImage")}
                     </Button>
                     <Button size="lg" variant="secondary" onClick={handleReset}>
                       <RefreshCw className="w-5 h-5 mr-2" />
-                      Try Another
+                      {t("hero.tryAnother")}
                     </Button>
                   </>
                 )}
@@ -389,11 +389,11 @@ export function HeroSection() {
                   <>
                     <Button size="lg" variant="primary" onClick={handleRemoveBackground}>
                       <RefreshCw className="w-5 h-5 mr-2" />
-                      Try Again
+                      {t("hero.tryAgain")}
                     </Button>
                     <Button size="lg" variant="secondary" onClick={handleReset}>
                       <X className="w-5 h-5 mr-2" />
-                      Reset
+                      {t("hero.reset")}
                     </Button>
                   </>
                 )}

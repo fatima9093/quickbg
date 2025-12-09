@@ -1,11 +1,15 @@
+"use client";
+
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Shield, Lock, Eye, Server, Database, Check, X, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { useTranslation } from "@/lib/useTranslation";
 
 export default function PrivacyPolicyPage() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -18,7 +22,7 @@ export default function PrivacyPolicyPage() {
               <Link href="/">
                 <Button variant="ghost" size="sm" className="gap-2">
                   <ArrowLeft className="w-4 h-4" />
-                  Back to Home
+                  {t("common.backToHome")}
                 </Button>
               </Link>
             </div>
@@ -26,16 +30,16 @@ export default function PrivacyPolicyPage() {
             <div className="text-center space-y-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm">
                 <Shield className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                <span className="text-sm font-medium text-primary-700 dark:text-primary-300">Privacy Policy</span>
+                <span className="text-sm font-medium text-primary-700 dark:text-primary-300">{t("privacy.badge")}</span>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100">
-                Your Privacy
+                {t("privacy.title")}
                 <span className="block bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
-                  Matters
+                  {t("privacy.titleHighlight")}
                 </span>
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-                Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                {t("common.lastUpdated")}: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
               </p>
             </div>
           </div>
@@ -317,7 +321,7 @@ export default function PrivacyPolicyPage() {
                   If you have questions about this Privacy Policy, please contact us at:
                 </p>
                 <div className="mt-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                  <p className="text-gray-900 dark:text-gray-100 font-medium">Email: <a href="mailto:privacy@quickbg.com" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">privacy@quickbg.com</a></p>
+                  <p className="text-gray-900 dark:text-gray-100 font-medium">Email: <a href="mailto:contact@quickbg.app" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">contact@quickbg.app</a></p>
                 </div>
               </section>
             </div>

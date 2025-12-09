@@ -23,6 +23,9 @@ export const API_ENDPOINTS = {
   adminStats: `${API_BASE_URL}/admin/stats`,
   adminUsers: `${API_BASE_URL}/admin/users`,
   
+  // Contact
+  contact: `${API_BASE_URL}/contact/contact`,
+  
   // Health
   health: `${API_BASE_URL}/health`,
 };

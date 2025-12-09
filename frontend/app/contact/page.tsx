@@ -9,8 +9,10 @@ import { Mail, MessageSquare, Send, MapPin, Clock, ArrowLeft } from "lucide-reac
 import { useState } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import { useTranslation } from "@/lib/useTranslation";
 
 export default function ContactPage() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,12 +25,29 @@ export default function ContactPage() {
     e.preventDefault();
     setLoading(true);
     
-    // Simulate sending email
-    setTimeout(() => {
-      toast.success("Message sent! We'll get back to you within 24 hours.");
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8002';
+      const response = await fetch(`${apiUrl}/api/v1/contact/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ detail: 'Failed to send message' }));
+        throw new Error(errorData.detail || 'Failed to send message');
+      }
+
+      toast.success(t("contact.messageSent"));
       setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      console.error('Contact form error:', error);
+      toast.error(t("contact.processingFailed") || "Failed to send message. Please try again.");
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -43,7 +62,7 @@ export default function ContactPage() {
               <Link href="/">
                 <Button variant="ghost" size="sm" className="gap-2">
                   <ArrowLeft className="w-4 h-4" />
-                  Back to Home
+                  {t("common.backToHome")}
                 </Button>
               </Link>
             </div>
@@ -51,17 +70,16 @@ export default function ContactPage() {
             <div className="text-center space-y-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm">
                 <MessageSquare className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                <span className="text-sm font-medium text-primary-700 dark:text-primary-300">Get In Touch</span>
+                <span className="text-sm font-medium text-primary-700 dark:text-primary-300">{t("contact.badge")}</span>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100">
-                Contact
+                {t("contact.title")}
                 <span className="block bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
-                  Our Team
+                  {t("contact.titleHighlight")}
                 </span>
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-                Have a question, feedback, or need help? We&apos;re here for you! 
-                Drop us a message and we&apos;ll respond within 24 hours.
+                {t("contact.description")}
               </p>
             </div>
           </div>
@@ -79,9 +97,9 @@ export default function ContactPage() {
                       <Mail className="w-7 h-7 text-blue-600 dark:text-blue-400" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2 text-lg">Email Us</h3>
+                      <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2 text-lg">{t("contact.emailUs")}</h3>
                       <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                        For general inquiries and support
+                        {t("contact.emailUsDesc")}
                       </p>
                       <a 
                         href="mailto:contact@quickbg.app" 
@@ -100,11 +118,11 @@ export default function ContactPage() {
                       <Clock className="w-7 h-7 text-green-600 dark:text-green-400" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2 text-lg">Response Time</h3>
+                      <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2 text-lg">{t("contact.responseTime")}</h3>
                       <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                        We typically respond within
+                        {t("contact.responseTimeDesc")}
                       </p>
-                      <p className="text-2xl font-bold text-green-600 dark:text-green-400">24 hours</p>
+                      <p className="text-2xl font-bold text-green-600 dark:text-green-400">{t("contact.hours24")}</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -115,9 +133,9 @@ export default function ContactPage() {
                       <MapPin className="w-7 h-7 text-purple-600 dark:text-purple-400" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2 text-lg">Based In</h3>
+                      <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2 text-lg">{t("contact.basedIn")}</h3>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Serving users worldwide with cloud-based infrastructure
+                        {t("contact.basedInDesc")}
                       </p>
                     </div>
                   </CardContent>
@@ -129,23 +147,23 @@ export default function ContactPage() {
                 <Card className="border-2 border-gray-100 dark:border-gray-700 shadow-lg">
                   <CardContent className="p-8 md:p-10">
                     <div className="mb-8">
-                      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Send Us a Message</h2>
-                      <p className="text-gray-600 dark:text-gray-400">Fill out the form below and we&apos;ll get back to you as soon as possible.</p>
+                      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t("contact.sendMessage")}</h2>
+                      <p className="text-gray-600 dark:text-gray-400">{t("contact.sendMessageDesc")}</p>
                     </div>
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid md:grid-cols-2 gap-6">
                         <Input
-                          label="Your Name"
+                          label={t("contact.yourName")}
                           type="text"
-                          placeholder="John Doe"
+                          placeholder={t("signup.namePlaceholder")}
                           value={formData.name}
                           onChange={(e) => setFormData({...formData, name: e.target.value})}
                           required
                         />
                         <Input
-                          label="Your Email"
+                          label={t("contact.yourEmail")}
                           type="email"
-                          placeholder="john@example.com"
+                          placeholder={t("contact.yourEmail")}
                           value={formData.email}
                           onChange={(e) => setFormData({...formData, email: e.target.value})}
                           required
@@ -153,9 +171,9 @@ export default function ContactPage() {
                       </div>
 
                       <Input
-                        label="Subject"
+                        label={t("contact.subject")}
                         type="text"
-                        placeholder="How can we help?"
+                        placeholder={t("contact.subjectPlaceholder")}
                         value={formData.subject}
                         onChange={(e) => setFormData({...formData, subject: e.target.value})}
                         required
@@ -163,10 +181,10 @@ export default function ContactPage() {
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          Message
+                          {t("contact.message")}
                         </label>
                         <textarea
-                          placeholder="Tell us more about your question or feedback..."
+                          placeholder={t("contact.messagePlaceholder")}
                           value={formData.message}
                           onChange={(e) => setFormData({...formData, message: e.target.value})}
                           rows={6}
@@ -182,7 +200,7 @@ export default function ContactPage() {
                         loading={loading}
                         icon={<Send className="w-5 h-5" />}
                       >
-                        Send Message
+                        {t("contact.sendMessageButton")}
                       </Button>
                     </form>
                   </CardContent>
@@ -200,15 +218,15 @@ export default function ContactPage() {
                 <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-primary-600 to-purple-600 dark:from-primary-500 dark:to-purple-500 flex items-center justify-center">
                   <MessageSquare className="w-8 h-8 text-white" />
                 </div>
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Looking for Quick Answers?</h2>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">{t("contact.lookingForAnswers")}</h2>
                 <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                  Check out our FAQ page for instant answers to common questions about QuickBG, pricing, and more.
+                  {t("contact.lookingForAnswersDesc")}
                 </p>
                 <a 
                   href="/faq"
                   className="inline-flex items-center justify-center px-8 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-500 text-white font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105 duration-200"
                 >
-                  Visit FAQ Page
+                  {t("contact.visitFAQ")}
                 </a>
               </CardContent>
             </Card>

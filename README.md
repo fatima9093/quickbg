@@ -128,7 +128,7 @@ pip install -r requirements.txt
 # Create a .env file with:
 DATABASE_URL=postgresql://user:password@localhost:5432/quickbg
 SECRET_KEY=your-secret-key-here
-CORS_ORIGINS=http://localhost:3000
+CORS_ORIGINS=http://localhost:3003
 
 # Run database migrations
 alembic upgrade head
@@ -140,8 +140,8 @@ python scripts/create-admin.py
 uvicorn app.main:app --reload
 ```
 
-Backend will be available at: `http://localhost:8000`
-API Documentation: `http://localhost:8000/docs`
+Backend will be available at: `http://localhost:8002`
+API Documentation: `http://localhost:8002/docs`
 
 #### 2. Frontend Setup
 
@@ -153,15 +153,15 @@ npm install
 
 # Set up environment variables
 # Create a .env.local file with:
-NEXT_PUBLIC_API_URL=http://localhost:8000
-NEXTAUTH_URL=http://localhost:3000
+NEXT_PUBLIC_API_URL=http://localhost:8002
+NEXTAUTH_URL=http://localhost:3003
 NEXTAUTH_SECRET=your-nextauth-secret-here
 
 # Start development server
 npm run dev
 ```
 
-Frontend will be available at: `http://localhost:3000`
+Frontend will be available at: `http://localhost:3003`
 
 ## 🔧 Configuration
 
@@ -175,7 +175,7 @@ DATABASE_URL=postgresql://user:password@localhost:5432/quickbg
 SECRET_KEY=your-secret-key-here  # Change in production!
 
 # CORS
-CORS_ORIGINS=http://localhost:3000,http://localhost:3001
+CORS_ORIGINS=http://localhost:3003,http://localhost:3001
 
 # Image Processing (optional - defaults shown)
 MAX_IMAGE_SIZE_MB=10
@@ -195,8 +195,8 @@ ACCESS_TOKEN_EXPIRE_MINUTES=10080  # 7 days
 ### Frontend Environment Variables (.env.local)
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:8000
-NEXTAUTH_URL=http://localhost:3000
+NEXT_PUBLIC_API_URL=http://localhost:8002
+NEXTAUTH_URL=http://localhost:3003
 NEXTAUTH_SECRET=your-nextauth-secret-here
 ```
 
@@ -327,7 +327,7 @@ alembic downgrade -1
 
 2. **CORS errors**
    - Add your frontend URL to `CORS_ORIGINS` in backend `.env`
-   - Format: `http://localhost:3000,https://yourdomain.com`
+   - Format: `http://localhost:3003,https://yourdomain.com`
 
 3. **JWT token errors**
    - Ensure `SECRET_KEY` matches between environments

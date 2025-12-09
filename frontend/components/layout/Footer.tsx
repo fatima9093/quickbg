@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslation } from "@/lib/useTranslation";
 
 export function Footer() {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -20,27 +24,27 @@ export function Footer() {
               />
             </Link>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Remove image backgrounds instantly with AI-powered precision.
+              {t("footer.description")}
             </p>
           </div>
 
           {/* Support */}
           <div>
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Support</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">{t("footer.support")}</h3>
             <ul className="space-y-3">
               <li>
                 <Link href="/faq" className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm">
-                  FAQ
+                  {t("footer.faq")}
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm">
-                  Contact Us
+                  {t("footer.contactUs")}
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm">
-                  About Us
+                  {t("footer.aboutUs")}
                 </Link>
               </li>
             </ul>
@@ -48,21 +52,21 @@ export function Footer() {
 
           {/* Product */}
           <div>
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Product</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">{t("footer.product")}</h3>
             <ul className="space-y-3">
               <li>
                 <Link href="/#features" className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm">
-                  Features
+                  {t("footer.features")}
                 </Link>
               </li>
               <li>
                 <Link href="/signup" className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm">
-                  Get Started
+                  {t("footer.getStarted")}
                 </Link>
               </li>
               <li>
                 <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm">
-                  Try It Now
+                  {t("footer.tryItNow")}
                 </Link>
               </li>
             </ul>
@@ -70,21 +74,21 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Legal</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">{t("footer.legal")}</h3>
             <ul className="space-y-3">
               <li>
                 <Link href="/privacy" className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm">
-                  Privacy Policy
+                  {t("footer.privacyPolicy")}
                 </Link>
               </li>
               <li>
                 <Link href="/terms" className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm">
-                  Terms of Service
+                  {t("footer.termsOfService")}
                 </Link>
               </li>
               <li>
                 <Link href="/cookies" className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm">
-                  Cookie Settings
+                  {t("footer.cookieSettings")}
                 </Link>
               </li>
             </ul>
@@ -93,7 +97,7 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
           <p className="text-center text-gray-600 dark:text-gray-400 text-sm">
-            © {currentYear} QuickBG. All rights reserved.
+            © {currentYear} QuickBG. {t("footer.copyright")}
           </p>
         </div>
       </div>

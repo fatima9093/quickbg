@@ -1,3 +1,5 @@
+"use client";
+
 import { 
   Sparkles, 
   Zap, 
@@ -7,47 +9,49 @@ import {
   Infinity 
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/Card";
-
-const features = [
-  {
-    icon: Sparkles,
-    title: "Professional Results Every Time",
-    description: "Get studio-quality background removal with precise edge detection. Perfect for product photos, portraits, and more.",
-    gradient: "from-purple-500 to-pink-500",
-  },
-  {
-    icon: Zap,
-    title: "Lightning Fast Processing",
-    description: "Your images are ready in 2-5 seconds. No waiting around - upload, process, and download in a flash.",
-    gradient: "from-yellow-500 to-orange-500",
-  },
-  {
-    icon: Shield,
-    title: "Your Privacy Protected",
-    description: "We never save your images. Upload, process, download - then it's gone forever. Your photos stay yours.",
-    gradient: "from-green-500 to-emerald-500",
-  },
-  {
-    icon: Download,
-    title: "Perfect Transparent Images",
-    description: "Get crystal-clear transparent backgrounds ready to use. Perfect for websites, presentations, and social media.",
-    gradient: "from-blue-500 to-cyan-500",
-  },
-  {
-    icon: User,
-    title: "Try Without Signup",
-    description: "Test it out with 5 free tries - no signup, no credit card, no hassle. Just upload and see the magic happen.",
-    gradient: "from-indigo-500 to-purple-500",
-  },
-  {
-    icon: Infinity,
-    title: "Unlimited After Signup",
-    description: "Create a free account and remove backgrounds without limits. Forever free, no hidden costs.",
-    gradient: "from-red-500 to-pink-500",
-  },
-];
+import { useTranslation } from "@/lib/useTranslation";
 
 export function FeaturesSection() {
+  const { t } = useTranslation();
+  
+  const features = [
+    {
+      icon: Sparkles,
+      title: t("features.professional.title"),
+      description: t("features.professional.description"),
+      gradient: "from-purple-500 to-pink-500",
+    },
+    {
+      icon: Zap,
+      title: t("features.fast.title"),
+      description: t("features.fast.description"),
+      gradient: "from-yellow-500 to-orange-500",
+    },
+    {
+      icon: Shield,
+      title: t("features.privacy.title"),
+      description: t("features.privacy.description"),
+      gradient: "from-green-500 to-emerald-500",
+    },
+    {
+      icon: Download,
+      title: t("features.transparent.title"),
+      description: t("features.transparent.description"),
+      gradient: "from-blue-500 to-cyan-500",
+    },
+    {
+      icon: User,
+      title: t("features.tryFree.title"),
+      description: t("features.tryFree.description"),
+      gradient: "from-indigo-500 to-purple-500",
+    },
+    {
+      icon: Infinity,
+      title: t("features.unlimited.title"),
+      description: t("features.unlimited.description"),
+      gradient: "from-red-500 to-pink-500",
+    },
+  ];
   return (
     <section id="features" className="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto">
@@ -55,16 +59,16 @@ export function FeaturesSection() {
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium">
             <Sparkles className="w-4 h-4" />
-            <span>Real Features • No Fluff</span>
+            <span>{t("features.badge")}</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">
-            What makes QuickBG
+            {t("features.title")}
             <span className="bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
-              {" "}different?
+              {" "}{t("features.titleHighlight")}
             </span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400">
-            Fast, private, and free. No gimmicks, no hidden costs, just results you&apos;ll love.
+            {t("features.description")}
           </p>
         </div>
 

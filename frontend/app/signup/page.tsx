@@ -11,8 +11,10 @@ import { Mail, Lock, User, Check, AlertCircle, ArrowLeft, Eye, EyeOff } from "lu
 import { signIn } from "next-auth/react";
 import { authApi } from "@/lib/api/auth";
 import toast from "react-hot-toast";
+import { useTranslation } from "@/lib/useTranslation";
 
 export default function SignupPage() {
+  const { t } = useTranslation();
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
@@ -36,7 +38,7 @@ export default function SignupPage() {
         name: formData.name || undefined,
       });
 
-      toast.success("Account created successfully!");
+      toast.success(t("common.accountCreated"));
 
       // Automatically sign in after registration
       const result = await signIn("credentials", {
@@ -57,7 +59,7 @@ export default function SignupPage() {
       }
     } catch (error: any) {
       console.error("Signup error:", error);
-      const errorMessage = error.response?.data?.detail || "Registration failed. Please try again.";
+      const errorMessage = error.response?.data?.detail || t("common.registrationFailed");
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
@@ -78,14 +80,14 @@ export default function SignupPage() {
         <div className="relative flex items-center justify-center p-12 text-white">
           <div className="max-w-md space-y-8">
             <h2 className="text-4xl font-bold">
-              Start your free trial today
+              {t("signup.rightSideTitle")}
             </h2>
             <div className="space-y-4">
               {[
-                "Process 10 images for free",
-                "No credit card required",
-                "Cancel anytime",
-                "24/7 support",
+                t("signup.feature1"),
+                t("signup.feature2"),
+                t("signup.feature3"),
+                t("signup.feature4"),
               ].map((feature, index) => (
                 <div key={index} className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
@@ -107,7 +109,7 @@ export default function SignupPage() {
             <Link href="/">
               <Button variant="ghost" size="sm" className="gap-2">
                 <ArrowLeft className="w-4 h-4" />
-                Back to Home
+                {t("signup.backToHome")}
               </Button>
             </Link>
           </div>
@@ -130,10 +132,10 @@ export default function SignupPage() {
           {/* Header */}
           <div className="text-center space-y-2">
             <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-              Create your account
+              {t("signup.createAccount")}
             </h1>
             <p className="text-gray-600 dark:text-gray-400">
-              Start removing backgrounds in seconds
+              {t("signup.startRemoving")}
             </p>
           </div>
 
@@ -148,9 +150,9 @@ export default function SignupPage() {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             <Input
-              label="Full name"
+              label={t("signup.fullName")}
               type="text"
-              placeholder="John Doe"
+              placeholder={t("signup.namePlaceholder")}
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               icon={<User className="w-5 h-5" />}
@@ -158,9 +160,9 @@ export default function SignupPage() {
             />
 
             <Input
-              label="Email address"
+              label={t("signup.emailAddress")}
               type="email"
-              placeholder="you@example.com"
+              placeholder={t("signup.emailPlaceholder")}
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               icon={<Mail className="w-5 h-5" />}
@@ -168,9 +170,9 @@ export default function SignupPage() {
             />
 
             <Input
-              label="Password"
+              label={t("signup.password")}
               type={showPassword ? "text" : "password"}
-              placeholder="••••••••"
+              placeholder={t("signup.passwordPlaceholder")}
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               icon={<Lock className="w-5 h-5" />}
@@ -193,13 +195,13 @@ export default function SignupPage() {
                 required
               />
               <span className="text-sm text-gray-600 dark:text-gray-400">
-                I agree to the{" "}
+                {t("signup.agreeTerms")}{" "}
                 <Link href="#" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">
-                  Terms of Service
+                  {t("signup.termsOfService")}
                 </Link>{" "}
-                and{" "}
+                {t("signup.and")}{" "}
                 <Link href="#" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">
-                  Privacy Policy
+                  {t("signup.privacyPolicy")}
                 </Link>
               </span>
             </div>
@@ -210,7 +212,7 @@ export default function SignupPage() {
               className="w-full"
               loading={loading}
             >
-              Create account
+              {t("signup.createAccountButton")}
             </Button>
           </form>
 
@@ -221,7 +223,7 @@ export default function SignupPage() {
             </div>
             <div className="relative flex justify-center text-sm">
               <span className="px-2 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400">
-                Or continue with
+                {t("signup.orContinueWith")}
               </span>
             </div>
           </div>
@@ -231,12 +233,12 @@ export default function SignupPage() {
 
           {/* Sign in link */}
           <p className="text-center text-gray-600 dark:text-gray-400">
-            Already have an account?{" "}
+            {t("signup.alreadyHaveAccount")}{" "}
             <Link
               href="/login"
               className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
             >
-              Sign in
+              {t("signup.signIn")}
             </Link>
           </p>
         </div>

@@ -16,7 +16,7 @@ MAIL_PORT=587
 MAIL_FROM_NAME=QuickBG
 
 # Frontend URL (for password reset links)
-FRONTEND_URL=http://localhost:3000
+FRONTEND_URL=http://localhost:3003
 ```
 
 ## Getting Your IONOS SMTP Credentials

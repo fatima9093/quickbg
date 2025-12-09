@@ -10,8 +10,10 @@ import { Input } from "@/components/ui/Input";
 import { GoogleButton } from "@/components/ui/GoogleButton";
 import { Mail, Lock, AlertCircle, ArrowLeft, Eye, EyeOff } from "lucide-react";
 import toast from "react-hot-toast";
+import { useTranslation } from "@/lib/useTranslation";
 
 export default function LoginPage() {
+  const { t } = useTranslation();
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
@@ -34,10 +36,10 @@ export default function LoginPage() {
       });
 
       if (result?.error) {
-        setError("Invalid email or password");
-        toast.error("Login failed. Please check your credentials.");
+        setError(t("common.invalidEmailPassword"));
+        toast.error(t("common.loginFailed"));
       } else if (result?.ok) {
-        toast.success("Login successful!");
+        toast.success(t("common.loginSuccessful"));
         // Role-based redirect: admins -> /admin, users -> /
         const { getSession } = await import("next-auth/react");
         const session = await getSession();
@@ -50,8 +52,8 @@ export default function LoginPage() {
       }
     } catch (error) {
       console.error("Login error:", error);
-      setError("An error occurred. Please try again.");
-      toast.error("An error occurred. Please try again.");
+      setError(t("common.errorOccurred"));
+      toast.error(t("common.errorOccurred"));
     } finally {
       setLoading(false);
     }
@@ -68,7 +70,7 @@ export default function LoginPage() {
             <Link href="/">
               <Button variant="ghost" size="sm" className="gap-2">
                 <ArrowLeft className="w-4 h-4" />
-                Back to Home
+                {t("login.backToHome")}
               </Button>
             </Link>
           </div>
@@ -91,10 +93,10 @@ export default function LoginPage() {
           {/* Header */}
           <div className="text-center space-y-2">
             <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-              Welcome back
+              {t("login.welcomeBack")}
             </h1>
             <p className="text-gray-600 dark:text-gray-400">
-              Sign in to continue to your account
+              {t("login.signInToContinue")}
             </p>
           </div>
 
@@ -109,9 +111,9 @@ export default function LoginPage() {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             <Input
-              label="Email address"
+              label={t("login.emailAddress")}
               type="email"
-              placeholder="you@example.com"
+              placeholder={t("login.emailPlaceholder")}
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               icon={<Mail className="w-5 h-5" />}
@@ -119,9 +121,9 @@ export default function LoginPage() {
             />
 
             <Input
-              label="Password"
+              label={t("login.password")}
               type={showPassword ? "text" : "password"}
-              placeholder="••••••••"
+              placeholder={t("login.passwordPlaceholder")}
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               icon={<Lock className="w-5 h-5" />}
@@ -143,13 +145,13 @@ export default function LoginPage() {
                   type="checkbox"
                   className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500"
                 />
-                <span className="text-sm text-gray-600 dark:text-gray-400">Remember me</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">{t("login.rememberMe")}</span>
               </label>
               <Link
                 href="/forgot-password"
                 className="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
               >
-                Forgot password?
+                {t("login.forgotPassword")}
               </Link>
             </div>
 
@@ -159,7 +161,7 @@ export default function LoginPage() {
               className="w-full"
               loading={loading}
             >
-              Sign in
+              {t("login.signIn")}
             </Button>
           </form>
 
@@ -170,7 +172,7 @@ export default function LoginPage() {
             </div>
             <div className="relative flex justify-center text-sm">
               <span className="px-2 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400">
-                Or continue with
+                {t("login.orContinueWith")}
               </span>
             </div>
           </div>
@@ -180,12 +182,12 @@ export default function LoginPage() {
 
           {/* Sign up link */}
           <p className="text-center text-gray-600 dark:text-gray-400">
-            Don&apos;t have an account?{" "}
+            {t("login.dontHaveAccount")}{" "}
             <Link
               href="/signup"
               className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
             >
-              Sign up
+              {t("login.signUp")}
             </Link>
           </p>
         </div>
@@ -201,10 +203,10 @@ export default function LoginPage() {
         <div className="relative flex items-center justify-center p-12 text-white">
           <div className="max-w-md space-y-6">
             <h2 className="text-4xl font-bold">
-              Remove backgrounds with AI precision
+              {t("login.rightSideTitle")}
             </h2>
             <p className="text-white/90 text-lg">
-              Join thousands of professionals who trust QuickBG for their image processing needs.
+              {t("login.rightSideDescription")}
             </p>
             <div className="flex items-center gap-4 pt-6">
               <div className="flex -space-x-2">
@@ -213,7 +215,7 @@ export default function LoginPage() {
                 <div className="w-10 h-10 rounded-full bg-white/20 border-2 border-white" />
               </div>
               <p className="text-sm">
-                <span className="font-semibold">1M+</span> images processed
+                <span className="font-semibold">1M+</span> {t("login.imagesProcessed")}
               </p>
             </div>
           </div>

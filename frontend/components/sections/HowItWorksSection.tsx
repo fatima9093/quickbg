@@ -1,46 +1,50 @@
-import { Upload, Wand2, Download, ArrowRight, Sparkles } from "lucide-react";
+"use client";
 
-const steps = [
-  {
-    number: "01",
-    icon: Upload,
-    title: "Upload Your Image",
-    description: "No signup required! Just drag and drop your image. Try 5 times completely free.",
-    color: "from-blue-500 to-cyan-500",
-    numberGradient: "from-blue-200 via-cyan-200 to-blue-100 dark:from-blue-400 dark:via-cyan-400 dark:to-blue-300",
-  },
-  {
-    number: "02",
-    icon: Wand2,
-    title: "AI Magic Happens",
-    description: "Our advanced AI removes the background in 2-5 seconds with incredible precision.",
-    color: "from-purple-500 to-pink-500",
-    numberGradient: "from-purple-200 via-pink-200 to-purple-100 dark:from-purple-400 dark:via-pink-400 dark:to-purple-300",
-  },
-  {
-    number: "03",
-    icon: Download,
-    title: "Download & Enjoy",
-    description: "Get your processed image instantly. Love it? Sign up for unlimited access!",
-    color: "from-green-500 to-emerald-500",
-    numberGradient: "from-green-200 via-emerald-200 to-green-100 dark:from-green-400 dark:via-emerald-400 dark:to-green-300",
-  },
-];
+import { Upload, Wand2, Download, ArrowRight, Sparkles } from "lucide-react";
+import { useTranslation } from "@/lib/useTranslation";
 
 export function HowItWorksSection() {
+  const { t } = useTranslation();
+  
+  const steps = [
+    {
+      number: "01",
+      icon: Upload,
+      title: t("howItWorks.step1.title"),
+      description: t("howItWorks.step1.description"),
+      color: "from-blue-500 to-cyan-500",
+      numberGradient: "from-blue-200 via-cyan-200 to-blue-100 dark:from-blue-400 dark:via-cyan-400 dark:to-blue-300",
+    },
+    {
+      number: "02",
+      icon: Wand2,
+      title: t("howItWorks.step2.title"),
+      description: t("howItWorks.step2.description"),
+      color: "from-purple-500 to-pink-500",
+      numberGradient: "from-purple-200 via-pink-200 to-purple-100 dark:from-purple-400 dark:via-pink-400 dark:to-purple-300",
+    },
+    {
+      number: "03",
+      icon: Download,
+      title: t("howItWorks.step3.title"),
+      description: t("howItWorks.step3.description"),
+      color: "from-green-500 to-emerald-500",
+      numberGradient: "from-green-200 via-emerald-200 to-green-100 dark:from-green-400 dark:via-emerald-400 dark:to-green-300",
+    },
+  ];
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">
-            How it
+            {t("howItWorks.title")}
             <span className="bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
-              {" "}works
+              {" "}{t("howItWorks.titleHighlight")}
             </span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400">
-            Three simple steps to perfect images
+            {t("howItWorks.description")}
           </p>
         </div>
 

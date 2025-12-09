@@ -162,10 +162,13 @@ async def forgot_password(request: ForgotPasswordRequest, db: Session = Depends(
     
     # Send email with reset link
     from app.services.email import send_password_reset_email
+    import logging
+    logger = logging.getLogger(__name__)
+    
     try:
         await send_password_reset_email(user.email, token, user.name)
     except Exception as e:
-        print(f"Failed to send email: {e}")
+        logger.error(f"Failed to send password reset email: {str(e)}", exc_info=True)
         # Still return success for security
     
     return MessageResponse(

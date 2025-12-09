@@ -5,33 +5,89 @@ import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Cookie, Check, X, ArrowLeft } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import { useTranslation } from "@/lib/useTranslation";
 
 export default function CookiesPage() {
+  const { t } = useTranslation();
   const [preferences, setPreferences] = useState({
     essential: true, // Always required
     analytics: false,
     marketing: false,
   });
 
+  useEffect(() => {
+    // Load existing preferences if available
+    const savedPreferences = localStorage.getItem('cookiePreferences');
+    const consentExpiry = localStorage.getItem('cookieConsentExpiry');
+    
+    if (savedPreferences) {
+      // Check if consent has expired
+      if (consentExpiry) {
+        const expiryDate = new Date(consentExpiry);
+        if (expiryDate < new Date()) {
+          // Consent expired, reset to defaults
+          localStorage.removeItem("cookieConsent");
+          localStorage.removeItem("cookieConsentExpiry");
+          localStorage.removeItem("cookiePreferences");
+          toast(t("cookies.preferencesExpired"));
+        } else {
+          // Load saved preferences
+          try {
+            const parsed = JSON.parse(savedPreferences);
+            setPreferences(parsed);
+          } catch (e) {
+            console.error("Error parsing cookie preferences:", e);
+          }
+        }
+      } else {
+        // Old format without expiry, load preferences
+        try {
+          const parsed = JSON.parse(savedPreferences);
+          setPreferences(parsed);
+        } catch (e) {
+          console.error("Error parsing cookie preferences:", e);
+        }
+      }
+    }
+  }, []);
+
   const handleSave = () => {
-    // Save preferences to localStorage
+    // Set expiration date (1 year from now)
+    const expirationDate = new Date();
+    expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+    
+    // Save preferences to localStorage with expiration
+    localStorage.setItem('cookieConsent', 'accepted');
+    localStorage.setItem('cookieConsentExpiry', expirationDate.toISOString());
     localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
-    toast.success("Cookie preferences saved!");
+    toast.success(t("cookies.preferencesSaved"));
   };
 
   const acceptAll = () => {
+    // Set expiration date (1 year from now)
+    const expirationDate = new Date();
+    expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+    
     setPreferences({ essential: true, analytics: true, marketing: true });
+    localStorage.setItem('cookieConsent', 'accepted');
+    localStorage.setItem('cookieConsentExpiry', expirationDate.toISOString());
     localStorage.setItem('cookiePreferences', JSON.stringify({ essential: true, analytics: true, marketing: true }));
-    toast.success("All cookies accepted!");
+    toast.success(t("cookies.allAccepted"));
   };
 
   const rejectAll = () => {
+    // Set expiration date (1 year from now)
+    const expirationDate = new Date();
+    expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+    
     setPreferences({ essential: true, analytics: false, marketing: false });
+    localStorage.setItem('cookieConsent', 'accepted');
+    localStorage.setItem('cookieConsentExpiry', expirationDate.toISOString());
     localStorage.setItem('cookiePreferences', JSON.stringify({ essential: true, analytics: false, marketing: false }));
-    toast.success("Optional cookies rejected!");
+    toast.success(t("cookies.optionalRejected"));
   };
 
   return (
@@ -46,7 +102,7 @@ export default function CookiesPage() {
               <Link href="/">
                 <Button variant="ghost" size="sm" className="gap-2">
                   <ArrowLeft className="w-4 h-4" />
-                  Back to Home
+                  {t("common.backToHome")}
                 </Button>
               </Link>
             </div>
@@ -54,16 +110,16 @@ export default function CookiesPage() {
             <div className="text-center space-y-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm">
                 <Cookie className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                <span className="text-sm font-medium text-primary-700 dark:text-primary-300">Cookie Settings</span>
+                <span className="text-sm font-medium text-primary-700 dark:text-primary-300">{t("cookies.badge")}</span>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100">
-                Cookie
+                {t("cookies.title")}
                 <span className="block bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
-                  Settings
+                  {t("cookies.titleHighlight")}
                 </span>
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-                Control how QuickBG uses cookies and similar technologies
+                {t("cookies.description")}
               </p>
             </div>
           </div>
@@ -78,13 +134,13 @@ export default function CookiesPage() {
                 onClick={acceptAll}
                 className="flex-1 px-6 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
               >
-                Accept All Cookies
+                {t("cookies.acceptAll")}
               </button>
               <button
                 onClick={rejectAll}
                 className="flex-1 px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:border-primary-600 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
               >
-                Reject Optional Cookies
+                {t("cookies.rejectOptional")}
               </button>
             </div>
 
@@ -97,28 +153,26 @@ export default function CookiesPage() {
                       <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30 flex items-center justify-center">
                         <Check className="w-6 h-6 text-green-600 dark:text-green-400" />
                       </div>
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Essential Cookies</h3>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t("cookies.essentialCookies")}</h3>
                       <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-bold rounded-full">
-                        ALWAYS ACTIVE
+                        {t("cookies.alwaysActive")}
                       </span>
                     </div>
                     <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                      These cookies are necessary for the website to function and cannot be switched off. 
-                      They are usually only set in response to actions made by you, such as logging in or 
-                      filling in forms.
+                      {t("cookies.essentialDesc")}
                     </p>
                     <div className="space-y-2">
                       <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                         <Check className="w-4 h-4 text-green-600 dark:text-green-400" />
-                        <span>Session management</span>
+                        <span>{t("cookies.sessionManagement")}</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                         <Check className="w-4 h-4 text-green-600 dark:text-green-400" />
-                        <span>User authentication</span>
+                        <span>{t("cookies.userAuthentication")}</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                         <Check className="w-4 h-4 text-green-600 dark:text-green-400" />
-                        <span>Security and fraud prevention</span>
+                        <span>{t("cookies.securityFraud")}</span>
                       </div>
                     </div>
                   </div>
@@ -138,28 +192,27 @@ export default function CookiesPage() {
                       <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-800/30 flex items-center justify-center">
                         <X className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                       </div>
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Analytics Cookies</h3>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t("cookies.analyticsCookies")}</h3>
                     </div>
                     <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                      These cookies help us understand how visitors interact with our website by collecting 
-                      and reporting information anonymously. This helps us improve our service.
+                      {t("cookies.analyticsDesc")}
                     </p>
                     <div className="space-y-2">
                       <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                         <X className="w-4 h-4 text-gray-400" />
-                        <span className="line-through">Page views and navigation</span>
+                        <span className="line-through">{t("cookies.pageViews")}</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                         <X className="w-4 h-4 text-gray-400" />
-                        <span className="line-through">Time spent on pages</span>
+                        <span className="line-through">{t("cookies.timeSpent")}</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                         <X className="w-4 h-4 text-gray-400" />
-                        <span className="line-through">Error tracking</span>
+                        <span className="line-through">{t("cookies.errorTracking")}</span>
                       </div>
                     </div>
                     <p className="text-sm text-gray-500 mt-4 italic">
-                      Note: QuickBG currently does not use analytics cookies
+                      {t("cookies.analyticsNote")}
                     </p>
                   </div>
                   <button
@@ -185,28 +238,27 @@ export default function CookiesPage() {
                       <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-800/30 flex items-center justify-center">
                         <X className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                       </div>
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Marketing Cookies</h3>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t("cookies.marketingCookies")}</h3>
                     </div>
                     <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                      These cookies track your online activity to help advertisers deliver more relevant advertising 
-                      or to limit how many times you see an ad.
+                      {t("cookies.marketingDesc")}
                     </p>
                     <div className="space-y-2">
                       <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                         <X className="w-4 h-4 text-gray-400" />
-                        <span className="line-through">Social media integration</span>
+                        <span className="line-through">{t("cookies.socialMedia")}</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                         <X className="w-4 h-4 text-gray-400" />
-                        <span className="line-through">Advertising tracking</span>
+                        <span className="line-through">{t("cookies.advertisingTracking")}</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                         <X className="w-4 h-4 text-gray-400" />
-                        <span className="line-through">Retargeting pixels</span>
+                        <span className="line-through">{t("cookies.retargetingPixels")}</span>
                       </div>
                     </div>
                     <p className="text-sm text-gray-500 mt-4 italic">
-                      Note: QuickBG does not use marketing or advertising cookies
+                      {t("cookies.marketingNote")}
                     </p>
                   </div>
                   <button
@@ -229,7 +281,7 @@ export default function CookiesPage() {
                 onClick={handleSave}
                 className="px-8 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
               >
-                Save Preferences
+                {t("cookies.savePreferences")}
               </button>
             </div>
           </div>
@@ -243,8 +295,8 @@ export default function CookiesPage() {
                 <Cookie className="w-4 h-4 text-primary-600 dark:text-primary-400" />
                 <span className="text-sm font-medium text-primary-700 dark:text-primary-300">Our Cookie Usage</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100">What QuickBG Actually Uses</h2>
-              <p className="text-xl text-gray-600 dark:text-gray-400">Transparency is important to us. Here&apos;s what we really use:</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100">{t("cookies.whatWeUse")}</h2>
+              <p className="text-xl text-gray-600 dark:text-gray-400">{t("cookies.transparencyDesc")}</p>
             </div>
             <Card className="border-2 border-primary-100 dark:border-primary-800 shadow-xl">
               <CardContent className="p-10">
@@ -254,10 +306,9 @@ export default function CookiesPage() {
                       <Check className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2 text-lg">Session Cookie</h3>
+                      <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2 text-lg">{t("cookies.sessionCookie")}</h3>
                       <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                        To keep you logged in while you use QuickBG. This expires when you close your browser.
-                        Essential for account functionality.
+                        {t("cookies.sessionCookieDesc")}
                       </p>
                     </div>
                   </div>
@@ -267,10 +318,9 @@ export default function CookiesPage() {
                       <Check className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2 text-lg">Anonymous Usage Tracking</h3>
+                      <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2 text-lg">{t("cookies.anonymousTracking")}</h3>
                       <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                        IP-based tracking to enforce the 5 free tries limit for anonymous users. No personal data is stored.
-                        Resets automatically after 24 hours.
+                        {t("cookies.anonymousTrackingDesc")}
                       </p>
                     </div>
                   </div>
@@ -280,10 +330,9 @@ export default function CookiesPage() {
                       <X className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2 text-lg">No Third-Party Trackers</h3>
+                      <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2 text-lg">{t("cookies.noThirdPartyTrackers")}</h3>
                       <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                        We don&apos;t use Google Analytics, Facebook Pixel, or any third-party tracking services.
-                        Your privacy is our priority.
+                        {t("cookies.noThirdPartyDesc")}
                       </p>
                     </div>
                   </div>

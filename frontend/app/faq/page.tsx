@@ -7,123 +7,127 @@ import { Button } from "@/components/ui/Button";
 import { HelpCircle, ChevronDown, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
+import { useTranslation } from "@/lib/useTranslation";
 
-const faqs = [
-  {
-    category: "Getting Started",
-    questions: [
-      {
-        q: "How does QuickBG work?",
-        a: "QuickBG uses advanced AI technology (ISNet) to automatically detect and remove backgrounds from your images. Simply upload your image, and our AI processes it with professional quality. You'll get a high-quality PNG with smooth edges and a transparent background, ready to download."
-      },
-      {
-        q: "Do I need to sign up to use QuickBG?",
-        a: "No! You can try QuickBG 5 times completely free without creating an account. After your free tries, create a free account to get unlimited background removal forever - no credit card required."
-      },
-      {
-        q: "Is QuickBG really free?",
-        a: "Yes! QuickBG is 100% free. You get 5 tries without signup, then unlimited background removal after creating a free account. There are no hidden fees, no premium tiers, and no credit card required."
-      },
-    ]
-  },
-  {
-    category: "Features & Limits",
-    questions: [
-      {
-        q: "What are the free tier limits?",
-        a: "Anonymous users: 5 free tries without signup. Registered users: Unlimited background removal - no limits, forever free. Just create a free account after your 5 tries."
-      },
-      {
-        q: "What image formats do you support?",
-        a: "We support all common image formats including JPG, JPEG, PNG, WEBP, and more. Your processed image is always exported as a high-quality PNG with transparency."
-      },
-      {
-        q: "What's the maximum image size?",
-        a: "You can upload images up to 10MB and 4096x4096 pixels. Our AI automatically optimizes the processing while maintaining quality."
-      },
-      {
-        q: "How fast is the processing?",
-        a: "Most images are processed in 2-5 seconds. We've optimized our AI model for speed without compromising quality."
-      },
-    ]
-  },
-  {
-    category: "Privacy & Security",
-    questions: [
-      {
-        q: "Do you store my images?",
-        a: "Absolutely not! We have a strict zero-storage policy. Your images are processed in memory and immediately deleted after you download them. We never save, store, or keep any of your images."
-      },
-      {
-        q: "Is my data safe?",
-        a: "Yes! We use secure HTTPS connections for all uploads. Your images are processed on our servers and deleted immediately. We don't track or store any image data."
-      },
-      {
-        q: "Who can see my images?",
-        a: "Only you! Your images are never accessible to anyone else. They're processed privately and exist only during the brief processing period."
-      },
-    ]
-  },
-  {
-    category: "Technical",
-    questions: [
-      {
-        q: "What AI technology powers QuickBG?",
-        a: "We use the ISNet AI model (isnet-general-use), which delivers professional-grade results with smooth edges and precise detail handling. It's the same quality standard used by premium background removal services."
-      },
-      {
-        q: "Why is my first upload slower?",
-        a: "The AI model is pre-warmed when our server starts, so your first upload should be just as fast! If you notice any slowness, it's likely due to network conditions."
-      },
-      {
-        q: "Can I use QuickBG for commercial projects?",
-        a: "Yes! You can use QuickBG for personal and commercial projects. The processed images are yours to use however you like."
-      },
-      {
-        q: "Do you have an API?",
-        a: "Not yet, but it's on our roadmap! We're focused on perfecting the web experience first. Sign up to get notified when our API launches."
-      },
-    ]
-  },
-  {
-    category: "Troubleshooting",
-    questions: [
-      {
-        q: "Why did my upload fail?",
-        a: "Common reasons: Image exceeds 10MB, unsupported format, or network issues. Make sure your image is under 10MB and in a standard format (JPG, PNG, WEBP)."
-      },
-      {
-        q: "The background wasn't removed correctly. Why?",
-        a: "AI isn't perfect! Complex backgrounds, low-contrast images, or transparent subjects can be challenging. Try images with clear subject-background separation for best results."
-      },
-      {
-        q: "I've used all my free tries. Now what?",
-        a: "Create a free account to get unlimited background removal! It takes just 30 seconds and doesn't require a credit card."
-      },
-      {
-        q: "I'm logged in but having issues uploading.",
-        a: "If you're logged in, you should have unlimited access. Try signing out and signing back in. If the issue persists, clear your browser cache and cookies, then try again."
-      },
-    ]
-  },
-  {
-    category: "Account & Billing",
-    questions: [
-      {
-        q: "How do I create an account?",
-        a: "Click 'Sign Up' in the top right corner, enter your name, email, and password. That's it! No credit card needed."
-      },
-      {
-        q: "Can I upgrade my account?",
-        a: "Currently, we offer unlimited background removal for free! All registered users get unlimited access with no daily limits. Enterprise options may be available in the future for additional features."
-      },
-      {
-        q: "How do I delete my account?",
-        a: "Contact us at contact@quickbg.app and we'll delete your account within 24 hours. Remember, we don't store any of your images anyway!"
-      },
-    ]
-  },
-];
+export default function FAQPage() {
+  const { t } = useTranslation();
+  
+  const faqs = [
+    {
+      category: t("faq.categories.gettingStarted"),
+      questions: [
+        {
+          q: t("faq.questions.howDoesItWork.q"),
+          a: t("faq.questions.howDoesItWork.a")
+        },
+        {
+          q: t("faq.questions.needSignup.q"),
+          a: t("faq.questions.needSignup.a")
+        },
+        {
+          q: t("faq.questions.isFree.q"),
+          a: t("faq.questions.isFree.a")
+        },
+      ]
+    },
+    {
+      category: t("faq.categories.featuresLimits"),
+      questions: [
+        {
+          q: t("faq.questions.freeTierLimits.q"),
+          a: t("faq.questions.freeTierLimits.a")
+        },
+        {
+          q: t("faq.questions.imageFormats.q"),
+          a: t("faq.questions.imageFormats.a")
+        },
+        {
+          q: t("faq.questions.maxImageSize.q"),
+          a: t("faq.questions.maxImageSize.a")
+        },
+        {
+          q: t("faq.questions.processingSpeed.q"),
+          a: t("faq.questions.processingSpeed.a")
+        },
+      ]
+    },
+    {
+      category: t("faq.categories.privacySecurity"),
+      questions: [
+        {
+          q: t("faq.questions.storeImages.q"),
+          a: t("faq.questions.storeImages.a")
+        },
+        {
+          q: t("faq.questions.dataSafe.q"),
+          a: t("faq.questions.dataSafe.a")
+        },
+        {
+          q: t("faq.questions.whoCanSee.q"),
+          a: t("faq.questions.whoCanSee.a")
+        },
+      ]
+    },
+    {
+      category: t("faq.categories.technical"),
+      questions: [
+        {
+          q: t("faq.questions.aiTechnology.q"),
+          a: t("faq.questions.aiTechnology.a")
+        },
+        {
+          q: t("faq.questions.firstUploadSlow.q"),
+          a: t("faq.questions.firstUploadSlow.a")
+        },
+        {
+          q: t("faq.questions.commercialUse.q"),
+          a: t("faq.questions.commercialUse.a")
+        },
+        {
+          q: t("faq.questions.haveAPI.q"),
+          a: t("faq.questions.haveAPI.a")
+        },
+      ]
+    },
+    {
+      category: t("faq.categories.troubleshooting"),
+      questions: [
+        {
+          q: t("faq.questions.uploadFailed.q"),
+          a: t("faq.questions.uploadFailed.a")
+        },
+        {
+          q: t("faq.questions.backgroundNotRemoved.q"),
+          a: t("faq.questions.backgroundNotRemoved.a")
+        },
+        {
+          q: t("faq.questions.usedAllTries.q"),
+          a: t("faq.questions.usedAllTries.a")
+        },
+        {
+          q: t("faq.questions.loggedInIssues.q"),
+          a: t("faq.questions.loggedInIssues.a")
+        },
+      ]
+    },
+    {
+      category: t("faq.categories.accountBilling"),
+      questions: [
+        {
+          q: t("faq.questions.createAccount.q"),
+          a: t("faq.questions.createAccount.a")
+        },
+        {
+          q: t("faq.questions.upgradeAccount.q"),
+          a: t("faq.questions.upgradeAccount.a")
+        },
+        {
+          q: t("faq.questions.deleteAccount.q"),
+          a: t("faq.questions.deleteAccount.a")
+        },
+      ]
+    },
+  ];
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -150,7 +154,6 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
   );
 }
 
-export default function FAQPage() {
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -163,7 +166,7 @@ export default function FAQPage() {
               <Link href="/">
                 <Button variant="ghost" size="sm" className="gap-2">
                   <ArrowLeft className="w-4 h-4" />
-                  Back to Home
+                  {t("common.backToHome")}
                 </Button>
               </Link>
             </div>
@@ -174,14 +177,13 @@ export default function FAQPage() {
                 <span className="text-sm font-medium text-primary-700 dark:text-primary-300">FAQ</span>
               </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100">
-              Frequently Asked
+              {t("faq.title")}
               <span className="block bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
-                Questions
+                {t("faq.titleHighlight")}
               </span>
             </h1>
               <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-                Everything you need to know about QuickBG. Can&apos;t find what you&apos;re looking for? 
-                Contact us and we&apos;ll get back to you ASAP!
+                {t("faq.description")}
               </p>
             </div>
           </div>
@@ -218,22 +220,22 @@ export default function FAQPage() {
                 <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-primary-600 to-purple-600 dark:from-primary-500 dark:to-purple-500 flex items-center justify-center">
                   <HelpCircle className="w-8 h-8 text-white" />
                 </div>
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Still Have Questions?</h2>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">{t("faq.stillHaveQuestions")}</h2>
                 <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                  We&apos;re here to help! Reach out to our friendly support team and we&apos;ll get back to you within 24 hours.
+                  {t("faq.stillHaveQuestionsDesc")}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                   <a 
                     href="/contact"
                     className="inline-flex items-center justify-center px-8 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-500 text-white font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105 duration-200"
                   >
-                    Contact Support
+                    {t("faq.contactSupport")}
                   </a>
                   <a 
                     href="/"
                     className="inline-flex items-center justify-center px-8 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold hover:border-primary-600 dark:hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition-all"
                   >
-                    Try QuickBG Now
+                    {t("faq.tryQuickBGNow")}
                   </a>
                 </div>
               </CardContent>

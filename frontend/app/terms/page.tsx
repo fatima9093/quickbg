@@ -1,11 +1,15 @@
+"use client";
+
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { FileText, Shield, Users, AlertTriangle, Check, X, Scale, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { useTranslation } from "@/lib/useTranslation";
 
 export default function TermsPage() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -18,7 +22,7 @@ export default function TermsPage() {
               <Link href="/">
                 <Button variant="ghost" size="sm" className="gap-2">
                   <ArrowLeft className="w-4 h-4" />
-                  Back to Home
+                  {t("common.backToHome")}
                 </Button>
               </Link>
             </div>
@@ -26,16 +30,16 @@ export default function TermsPage() {
             <div className="text-center space-y-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm">
                 <FileText className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                <span className="text-sm font-medium text-primary-700 dark:text-primary-300">Terms of Service</span>
+                <span className="text-sm font-medium text-primary-700 dark:text-primary-300">{t("terms.badge")}</span>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100">
-                Terms of
+                {t("terms.title")}
                 <span className="block bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
-                  Service
+                  {t("terms.titleHighlight")}
                 </span>
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-                Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                {t("common.lastUpdated")}: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
               </p>
             </div>
           </div>
@@ -280,7 +284,7 @@ export default function TermsPage() {
                   If you have questions about these Terms, please contact us:
                 </p>
                 <div className="mt-4 p-6 bg-gray-50 rounded-lg">
-                  <p className="text-gray-900 font-medium">Email: <a href="mailto:legal@quickbg.com" className="text-primary-600">legal@quickbg.com</a></p>
+                  <p className="text-gray-900 font-medium">Email: <a href="mailto:contact@quickbg.app" className="text-primary-600">contact@quickbg.app</a></p>
                 </div>
               </section>
 
